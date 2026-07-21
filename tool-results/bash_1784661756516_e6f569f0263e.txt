@@ -1,0 +1,1386 @@
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+[error] ./src/components/apps/app-list-view.tsx:28:1
+Export ACTIVE_STATES doesn't exist in target module
+  26 |   HardDrive,
+  27 | } from 'lucide-react'
+> 28 | import { APP_TYPE_LABELS, ACTIVE_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  29 | import { APP_STATUS, TRANSIENT_STATES } from '@/lib/types'
+  30 | import { toast } from 'sonner'
+  31 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-list-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-list-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-list-view.tsx:28:1
+Export ACTIVE_STATES doesn't exist in target module
+  26 |   HardDrive,
+  27 | } from 'lucide-react'
+> 28 | import { APP_TYPE_LABELS, ACTIVE_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  29 | import { APP_STATUS, TRANSIENT_STATES } from '@/lib/types'
+  30 | import { toast } from 'sonner'
+  31 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-list-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-list-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-detail-view.tsx:18:1
+Export TRANSIENT_STATES doesn't exist in target module
+  16 |   Terminal, FileText, FolderOpen, Settings, Activity, Shield, Clock, Database,
+  17 | } from 'lucide-react'
+> 18 | import { APP_TYPE_LABELS, ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { APP_STATUS } from '@/lib/types'
+  20 | import { AppOverviewTab } from './app-overview-tab'
+  21 | import { FileManager } from '@/components/files/file-manager'
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-detail-view.tsx:18:1
+Export TRANSIENT_STATES doesn't exist in target module
+  16 |   Terminal, FileText, FolderOpen, Settings, Activity, Shield, Clock, Database,
+  17 | } from 'lucide-react'
+> 18 | import { APP_TYPE_LABELS, ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { APP_STATUS } from '@/lib/types'
+  20 | import { AppOverviewTab } from './app-overview-tab'
+  21 | import { FileManager } from '@/components/files/file-manager'
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/common/status-badge.tsx:4:1
+Export TRANSIENT_STATES doesn't exist in target module
+  2 |
+  3 | import { cn } from '@/lib/utils'
+> 4 | import { STATUS_COLORS, STATUS_LABELS, TRANSIENT_STATES } from '@/lib/constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import type { AppStatus } from '@/lib/types'
+  6 |
+  7 | interface StatusBadgeProps {
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/common/status-badge.tsx [Client Component Browser]
+    ./src/components/apps/app-list-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/common/status-badge.tsx [Client Component SSR]
+    ./src/components/apps/app-list-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/common/status-badge.tsx:4:1
+Export TRANSIENT_STATES doesn't exist in target module
+  2 |
+  3 | import { cn } from '@/lib/utils'
+> 4 | import { STATUS_COLORS, STATUS_LABELS, TRANSIENT_STATES } from '@/lib/constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import type { AppStatus } from '@/lib/types'
+  6 |
+  7 | interface StatusBadgeProps {
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/common/status-badge.tsx [Client Component Browser]
+    ./src/components/apps/app-list-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/common/status-badge.tsx [Client Component SSR]
+    ./src/components/apps/app-list-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[log] [Fast Refresh] rebuilding
+[clear] console.clear
+[error] ./src/components/apps/app-list-view.tsx:28:1
+Export ACTIVE_STATES doesn't exist in target module
+  26 |   HardDrive,
+  27 | } from 'lucide-react'
+> 28 | import { APP_TYPE_LABELS, ACTIVE_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  29 | import { APP_STATUS, TRANSIENT_STATES } from '@/lib/types'
+  30 | import { toast } from 'sonner'
+  31 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-list-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-list-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-list-view.tsx:28:1
+Export ACTIVE_STATES doesn't exist in target module
+  26 |   HardDrive,
+  27 | } from 'lucide-react'
+> 28 | import { APP_TYPE_LABELS, ACTIVE_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  29 | import { APP_STATUS, TRANSIENT_STATES } from '@/lib/types'
+  30 | import { toast } from 'sonner'
+  31 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-list-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-list-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-detail-view.tsx:18:1
+Export TRANSIENT_STATES doesn't exist in target module
+  16 |   Terminal, FileText, FolderOpen, Settings, Activity, Shield, Clock, Database,
+  17 | } from 'lucide-react'
+> 18 | import { APP_TYPE_LABELS, ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { APP_STATUS } from '@/lib/types'
+  20 | import { AppOverviewTab } from './app-overview-tab'
+  21 | import { FileManager } from '@/components/files/file-manager'
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-detail-view.tsx:18:1
+Export TRANSIENT_STATES doesn't exist in target module
+  16 |   Terminal, FileText, FolderOpen, Settings, Activity, Shield, Clock, Database,
+  17 | } from 'lucide-react'
+> 18 | import { APP_TYPE_LABELS, ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { APP_STATUS } from '@/lib/types'
+  20 | import { AppOverviewTab } from './app-overview-tab'
+  21 | import { FileManager } from '@/components/files/file-manager'
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/common/status-badge.tsx:4:1
+Export TRANSIENT_STATES doesn't exist in target module
+  2 |
+  3 | import { cn } from '@/lib/utils'
+> 4 | import { STATUS_COLORS, STATUS_LABELS, TRANSIENT_STATES } from '@/lib/constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import type { AppStatus } from '@/lib/types'
+  6 |
+  7 | interface StatusBadgeProps {
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/common/status-badge.tsx [Client Component Browser]
+    ./src/components/apps/app-list-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/common/status-badge.tsx [Client Component SSR]
+    ./src/components/apps/app-list-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/common/status-badge.tsx:4:1
+Export TRANSIENT_STATES doesn't exist in target module
+  2 |
+  3 | import { cn } from '@/lib/utils'
+> 4 | import { STATUS_COLORS, STATUS_LABELS, TRANSIENT_STATES } from '@/lib/constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import type { AppStatus } from '@/lib/types'
+  6 |
+  7 | interface StatusBadgeProps {
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/common/status-badge.tsx [Client Component Browser]
+    ./src/components/apps/app-list-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/common/status-badge.tsx [Client Component SSR]
+    ./src/components/apps/app-list-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[log] [Fast Refresh] rebuilding
+[clear] console.clear
+[error] ./src/components/apps/app-list-view.tsx:28:1
+Export ACTIVE_STATES doesn't exist in target module
+  26 |   HardDrive,
+  27 | } from 'lucide-react'
+> 28 | import { APP_TYPE_LABELS, ACTIVE_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  29 | import { APP_STATUS, TRANSIENT_STATES } from '@/lib/types'
+  30 | import { toast } from 'sonner'
+  31 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-list-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-list-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-list-view.tsx:28:1
+Export ACTIVE_STATES doesn't exist in target module
+  26 |   HardDrive,
+  27 | } from 'lucide-react'
+> 28 | import { APP_TYPE_LABELS, ACTIVE_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  29 | import { APP_STATUS, TRANSIENT_STATES } from '@/lib/types'
+  30 | import { toast } from 'sonner'
+  31 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-list-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-list-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-detail-view.tsx:18:1
+Export TRANSIENT_STATES doesn't exist in target module
+  16 |   Terminal, FileText, FolderOpen, Settings, Activity, Shield, Clock, Database,
+  17 | } from 'lucide-react'
+> 18 | import { APP_TYPE_LABELS, ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { APP_STATUS } from '@/lib/types'
+  20 | import { AppOverviewTab } from './app-overview-tab'
+  21 | import { FileManager } from '@/components/files/file-manager'
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-detail-view.tsx:18:1
+Export TRANSIENT_STATES doesn't exist in target module
+  16 |   Terminal, FileText, FolderOpen, Settings, Activity, Shield, Clock, Database,
+  17 | } from 'lucide-react'
+> 18 | import { APP_TYPE_LABELS, ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { APP_STATUS } from '@/lib/types'
+  20 | import { AppOverviewTab } from './app-overview-tab'
+  21 | import { FileManager } from '@/components/files/file-manager'
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[log] [Fast Refresh] rebuilding
+[clear] console.clear
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-detail-view.tsx:18:1
+Export TRANSIENT_STATES doesn't exist in target module
+  16 |   Terminal, FileText, FolderOpen, Settings, Activity, Shield, Clock, Database,
+  17 | } from 'lucide-react'
+> 18 | import { APP_TYPE_LABELS, ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { APP_STATUS } from '@/lib/types'
+  20 | import { AppOverviewTab } from './app-overview-tab'
+  21 | import { FileManager } from '@/components/files/file-manager'
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-detail-view.tsx:18:1
+Export TRANSIENT_STATES doesn't exist in target module
+  16 |   Terminal, FileText, FolderOpen, Settings, Activity, Shield, Clock, Database,
+  17 | } from 'lucide-react'
+> 18 | import { APP_TYPE_LABELS, ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { APP_STATUS } from '@/lib/types'
+  20 | import { AppOverviewTab } from './app-overview-tab'
+  21 | import { FileManager } from '@/components/files/file-manager'
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[log] [Fast Refresh] rebuilding
+[clear] console.clear
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-detail-view.tsx:18:1
+Export TRANSIENT_STATES doesn't exist in target module
+  16 |   Terminal, FileText, FolderOpen, Settings, Activity, Shield, Clock, Database,
+  17 | } from 'lucide-react'
+> 18 | import { APP_TYPE_LABELS, ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { APP_STATUS } from '@/lib/types'
+  20 | import { AppOverviewTab } from './app-overview-tab'
+  21 | import { FileManager } from '@/components/files/file-manager'
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-detail-view.tsx:18:1
+Export TRANSIENT_STATES doesn't exist in target module
+  16 |   Terminal, FileText, FolderOpen, Settings, Activity, Shield, Clock, Database,
+  17 | } from 'lucide-react'
+> 18 | import { APP_TYPE_LABELS, ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  19 | import { APP_STATUS } from '@/lib/types'
+  20 | import { AppOverviewTab } from './app-overview-tab'
+  21 | import { FileManager } from '@/components/files/file-manager'
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[log] [Fast Refresh] rebuilding
+[clear] console.clear
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[log] [Fast Refresh] rebuilding
+[clear] console.clear
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export ACTIVE_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export ACTIVE_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import TERMINAL_TIMEOUT?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-client] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[error] ./src/components/apps/app-overview-tab.tsx:13:1
+Export TRANSIENT_STATES doesn't exist in target module
+  11 | import { formatDistanceToNow } from 'date-fns'
+  12 | import type { Application } from '@prisma/client'
+> 13 | import { ACTIVE_STATES, TRANSIENT_STATES } from '@/lib/constants'
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 | import { APP_STATUS } from '@/lib/types'
+  15 | import { toast } from 'sonner'
+  16 |
+
+The export TRANSIENT_STATES was not found in module [project]/src/lib/constants.ts [app-ssr] (ecmascript).
+Did you mean to import STATUS_LABELS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/apps/app-overview-tab.tsx [Client Component Browser]
+    ./src/components/apps/app-detail-view.tsx [Client Component Browser]
+    ./src/components/common/app-shell.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/apps/app-overview-tab.tsx [Client Component SSR]
+    ./src/components/apps/app-detail-view.tsx [Client Component SSR]
+    ./src/components/common/app-shell.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[log] [Fast Refresh] rebuilding
+[warning] [Fast Refresh] performing full reload because your application had an unrecoverable error
+[warning] [Fast Refresh] performing full reload because your application had an unrecoverable error
+[clear] console.clear
+[log] [Fast Refresh] done in 313ms
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+[log] [Fast Refresh] rebuilding
+[warning] [Fast Refresh] performing full reload because your application had an unrecoverable error
+[log] [Fast Refresh] done in 218ms
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+[log] [Fast Refresh] rebuilding
+[log] [Fast Refresh] done in 129ms
+[log] [Fast Refresh] rebuilding
+[warning] [Fast Refresh] performing full reload because your application had an unrecoverable error
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+[log] [Fast Refresh] rebuilding
+[log] [Fast Refresh] done in 208ms
+[log] [Fast Refresh] rebuilding
+[log] [Fast Refresh] done in 915ms
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+[log] [Fast Refresh] rebuilding
+[log] [Fast Refresh] done in 137ms
+[log] [Fast Refresh] rebuilding
+[log] [Fast Refresh] done in 146ms
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+[log] [Fast Refresh] rebuilding
+[log] [Fast Refresh] done in 203ms
+[log] [Fast Refresh] rebuilding
+[log] [Fast Refresh] done in 153ms
+[log] [Fast Refresh] rebuilding
+[log] [Fast Refresh] done in 407ms
+[log] [Fast Refresh] rebuilding
+[warning] [Fast Refresh] performing full reload because your application had an unrecoverable error
+[log] [Fast Refresh] done in 153ms
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+[log] [Fast Refresh] rebuilding
+[log] [Fast Refresh] done in 102ms
+[log] [Fast Refresh] rebuilding
+[warning] [Fast Refresh] performing full reload because your application had an unrecoverable error
+[log] [Fast Refresh] done in 176ms
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+[log] [Fast Refresh] rebuilding
+[log] [Fast Refresh] done in 128ms
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected

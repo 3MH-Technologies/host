@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -17,16 +11,161 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
+  role      String   @default("admin")
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  apps      Application[]
+  auditLogs AuditLog[]
+}
+
+model Application {
+  id                String   @id @default(cuid())
+  name              String
+  slug              String   @unique
+  description       String?
+  
+  // Type & Runtime
+  appType           String   @default("custom")       // python-web, python-bot, python-worker, php-web, php-worker, custom
+  runtime           String   @default("python")        // python, php
+  runtimeVersion    String   @default("3.11")
+  
+  // Status & Lifecycle
+  status            String   @default("CREATED")       // CREATED, PREPARING, INSTALLING, STARTING, RUNNING, STOPPING, STOPPED, RESTARTING, CRASHED, FAILED, REBUILDING, SUSPENDED, DELETING
+  
+  // Storage
+  storagePath       String                        // Absolute path on disk
+  entryPoint        String?
+  workingDir        String   @default(".")
+  
+  // Commands
+  installCmd        String?
+  buildCmd          String?
+  startCmd          String?
+  stopCmd           String?
+  restartCmd        String?
+  healthCheckCmd    String?
+  
+  // Networking
+  port              Int?
+  host              String   @default("0.0.0.0")
+  
+  // Health Check
+  healthCheckType   String   @default("process")    // process, port, http, command, none
+  healthCheckPath   String?
+  healthCheckInterval Int  @default(30)
+  healthCheckTimeout  Int  @default(5)
+  healthCheckRetries  Int  @default(3)
+  
+  // Restart Policy
+  restartPolicy     String   @default("on-failure")  // always, on-failure, never
+  maxRestartAttempts Int  @default(5)
+  restartDelay      Int      @default(5)
+  restartBackoff    Boolean  @default(true)
+  currentRestartCount Int   @default(0)
+  
+  // Resource Limits
+  cpuLimit          Float    @default(1.0)
+  memoryLimit       Int      @default(512)            // MB
+  diskLimit         Int?                              // MB
+  maxProcesses      Int      @default(10)
+  
+  // Process Info
+  pid               Int?
+  exitCode          Int?
+  lastError         String?
+  
+  // Timestamps
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  lastStartedAt     DateTime?
+  lastStoppedAt     DateTime?
+  lastFailedAt      DateTime?
+  
+  // Relations
+  userId            String
+  user              User     @relation(fields: [userId], references: [id])
+  envVars           EnvVar[]
+  auditLogs         AuditLog[]
+  backups           Backup[]
+  schedules         Schedule[]
+}
+
+model EnvVar {
+  id          String   @id @default(cuid())
+  appId       String
+  app         Application @relation(fields: [appId], references: [id], onDelete: Cascade)
+  key         String
+  value       String
+  isSecret    Boolean  @default(false)
+  scope       String   @default("all")   // all, build, runtime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@unique([appId, key])
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id])
+  appId       String?
+  app         Application? @relation(fields: [appId], references: [id])
+  action      String                         // create_app, delete_app, start, stop, restart, upload_file, delete_file, install_deps, change_env, etc.
+  resource    String?
+  details     String?
+  status      String   @default("success")  // success, failure
+  requestId   String?
+  ipAddress   String?
+  createdAt   DateTime @default(now())
+}
+
+model Backup {
+  id          String   @id @default(cuid())
+  appId       String
+  app         Application @relation(fields: [appId], references: [id], onDelete: Cascade)
+  name        String
+  filePath    String?
+  fileSize    Int?
+  includeFiles     Boolean @default(true)
+  includeEnv       Boolean @default(true)
+  includeSettings  Boolean @default(true)
+  status      String   @default("pending")  // pending, creating, completed, failed
+  createdAt   DateTime @default(now())
+}
+
+model Schedule {
+  id          String   @id @default(cuid())
+  appId       String
+  app         Application @relation(fields: [appId], references: [id], onDelete: Cascade)
+  name        String
+  action      String                         // run_command, start_app, stop_app, restart_app
+  command     String?
+  cronExpr    String?
+  cronKind    String   @default("cron")       // cron, fixed_rate, one_time
+  cronTz      String   @default("Asia/Riyadh")
+  enabled     Boolean  @default(true)
+  lastRunAt   DateTime?
+  nextRunAt   DateTime?
+  lastResult  String?
+  lastDuration Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SystemSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
   updatedAt DateTime @updatedAt
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Notification {
+  id          String   @id @default(cuid())
+  appId       String?
+  type        String                         // app_started, app_stopped, app_crashed, build_failed, high_cpu, high_memory, health_check_failed
+  title       String
+  message     String
+  level       String   @default("info")      // info, warning, error, critical
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
 }
