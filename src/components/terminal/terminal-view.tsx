@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { io, Socket } from 'socket.io-client'
+import { getTerminalSocket } from '@/lib/socket'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
@@ -15,7 +15,7 @@ interface Props {
 export function TerminalView({ appId }: Props) {
   const termRef = useRef<HTMLDivElement>(null)
   const xtermRef = useRef<any>(null)
-  const socketRef = useRef<Socket | null>(null)
+  const socketRef = useRef<any>(null)
   const fitAddonRef = useRef<any>(null)
   const [connected, setConnected] = useState(false)
   const [connecting, setConnecting] = useState(false)
@@ -61,7 +61,16 @@ export function TerminalView({ appId }: Props) {
 
       // Handle resize
       const resizeObserver = new ResizeObserver(() => {
-        try { fitAddon.fit() } catch {}
+        try {
+          fitAddon.fit()
+          if (socketRef.current?.connected) {
+            socketRef.current.emit('terminal:resize', {
+              appId,
+              cols: term.cols,
+              rows: term.rows,
+            })
+          }
+        } catch {}
       })
       if (termRef.current) resizeObserver.observe(termRef.current)
 
@@ -79,12 +88,11 @@ export function TerminalView({ appId }: Props) {
 
     await initTerminal()
 
-    const socket = io('/?XTransformPort=3004', {
-      transports: ['websocket'],
-      reconnection: true,
-      reconnectionAttempts: 5,
-      reconnectionDelay: 2000,
-    })
+    const socket = getTerminalSocket()
+    socketRef.current = socket
+
+    // Clean up previous listeners for this component instance
+    socket.off('connect').off('terminal:output').off('disconnect').off('connect_error').off('terminal:exit')
 
     socket.on('connect', () => {
       setConnected(true)
@@ -97,22 +105,31 @@ export function TerminalView({ appId }: Props) {
       xtermRef.current?.write(data)
     })
 
+    socket.on('terminal:exit', ({ exitCode }: { exitCode: number }) => {
+      xtermRef.current?.writeln(`\r\n\x1b[33mProcess exited with code ${exitCode}\x1b[0m\r\n`)
+    })
+
     socket.on('disconnect', () => {
       setConnected(false)
       xtermRef.current?.writeln('\x1b[31mDisconnected from terminal\x1b[0m\r\n')
     })
 
-    socket.on('connect_error', (err) => {
+    socket.on('connect_error', (err: any) => {
       setConnecting(false)
       setConnected(false)
       console.error('Terminal connection error:', err)
     })
-
-    socketRef.current = socket
   }, [appId, initTerminal])
 
   const disconnect = useCallback(() => {
-    socketRef.current?.disconnect()
+    const socket = socketRef.current
+    if (socket) {
+      socket.off('connect')
+      socket.off('terminal:output')
+      socket.off('disconnect')
+      socket.off('connect_error')
+      socket.off('terminal:exit')
+    }
     socketRef.current = null
     setConnected(false)
   }, [])
@@ -128,11 +145,20 @@ export function TerminalView({ appId }: Props) {
 
   useEffect(() => {
     const handleResize = () => {
-      try { fitAddonRef.current?.fit() } catch {}
+      try {
+        fitAddonRef.current?.fit()
+        if (socketRef.current?.connected && xtermRef.current) {
+          socketRef.current.emit('terminal:resize', {
+            appId,
+            cols: xtermRef.current.cols,
+            rows: xtermRef.current.rows,
+          })
+        }
+      } catch {}
     }
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  }, [appId])
 
   return (
     <Card className="overflow-hidden">

@@ -7,7 +7,6 @@ import {
   Layers,
   PlusCircle,
   ScrollText,
-  Bell,
   Sun,
   Moon,
   Anvil,
@@ -15,10 +14,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import {
   Sidebar,
   SidebarContent,
@@ -36,8 +32,9 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar'
 import { useAppStore } from '@/store/app-store'
-import { useNotifications } from '@/hooks/use-api'
-import { cn } from '@/lib/utils'
+import { useUIStore } from '@/store/ui-store'
+import { CommandPalette } from '@/components/common/command-palette'
+import { NotificationPanel } from '@/components/common/notification-panel'
 
 const NAV_ITEMS = [
   { id: 'dashboard' as const, label: 'Dashboard', icon: LayoutDashboard },
@@ -74,23 +71,8 @@ function ThemeToggle() {
   )
 }
 
-function NotificationBell() {
-  const { data } = useNotifications()
-  const unread = (data?.data || []).filter((n) => !n.read).length
-  return (
-    <Button variant="ghost" size="icon" className="relative h-8 w-8">
-      <Bell className="h-4 w-4" />
-      {unread > 0 && (
-        <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
-          {unread > 9 ? '9+' : unread}
-        </span>
-      )}
-      <span className="sr-only">Notifications</span>
-    </Button>
-  )
-}
-
 function TopBar() {
+  const toggleCommandPalette = useUIStore((s) => s.toggleCommandPalette)
   return (
     <header className="flex h-14 items-center gap-2 border-b bg-background px-4 shrink-0">
       <SidebarTrigger className="-ml-1" />
@@ -100,7 +82,17 @@ function TopBar() {
         <span>HostForge</span>
       </div>
       <div className="flex-1" />
-      <NotificationBell />
+      <button
+        onClick={toggleCommandPalette}
+        className="flex items-center gap-1.5 rounded-md border border-border bg-muted/50 px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+        aria-label="Open command palette"
+      >
+        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-0.5 rounded border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+          ⌘K
+        </kbd>
+        <span className="hidden sm:inline">Search...</span>
+      </button>
+      <NotificationPanel />
       <ThemeToggle />
       <Avatar className="h-7 w-7">
         <AvatarFallback className="bg-emerald-500/10 text-emerald-500 text-xs font-semibold">A</AvatarFallback>
@@ -169,7 +161,6 @@ function AppSidebar() {
 
 function AppDetailSidebar() {
   const { selectedAppId, selectedTab, setSelectedTab, setCurrentView } = useAppStore()
-  const { data } = useNotifications()
 
   if (!selectedAppId) return null
 
@@ -253,6 +244,7 @@ export function AppShell() {
 
   return (
     <SidebarProvider>
+      <CommandPalette />
       {selectedAppId ? <AppDetailSidebar /> : <AppSidebar />}
       <SidebarInset>
         <TopBar />

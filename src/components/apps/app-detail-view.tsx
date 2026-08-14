@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { useApp, useLifecycleAction, useDeleteApp, useMonitoring, useLogs } from '@/hooks/use-api'
+import { useProcessEvents } from '@/hooks/use-process-events'
 import { useAppStore } from '@/store/app-store'
 import { StatusBadge } from '@/components/common/status-badge'
 import { ConfirmDialog } from '@/components/common/confirm-dialog'
@@ -46,6 +47,8 @@ export function AppDetailView() {
   const deleteApp = useDeleteApp()
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [autoRefresh, setAutoRefresh] = useState(true)
+
+  useProcessEvents(selectedAppId)
 
   const app = data?.data
   const isTransient = app ? TRANSIENT_STATES.includes(app.status) : false

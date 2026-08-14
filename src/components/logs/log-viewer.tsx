@@ -31,7 +31,8 @@ export function LogViewer({ appId }: Props) {
   const { data, isLoading, refetch } = useLogs(appId, source, 500)
   const clearLogs = useClearLogs(appId)
 
-  const logs = (data?.data || []).filter((l) =>
+  const allLogs = ((data?.data as any)?.lines || [])
+  const logs = allLogs.filter((l: any) =>
     !search || l.message.toLowerCase().includes(search.toLowerCase())
   )
 
@@ -49,7 +50,7 @@ export function LogViewer({ appId }: Props) {
   }
 
   const handleDownload = () => {
-    const text = logs.map((l) => `[${l.timestamp}] [${l.level?.toUpperCase()}] ${l.message}`).join('\n')
+    const text = allLogs.map((l: any) => `[${l.timestamp}] [${l.level?.toUpperCase()}] ${l.message}`).join('\n')
     const blob = new Blob([text], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -104,7 +105,7 @@ export function LogViewer({ appId }: Props) {
         ) : logs.length === 0 ? (
           <EmptyState icon={FileText} title="No logs" description="No log entries found." className="py-16" />
         ) : (
-          logs.map((log, i) => (
+          logs.map((log: any, i: number) => (
             <div
               key={i}
               className={cn(

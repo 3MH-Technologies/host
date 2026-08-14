@@ -274,3 +274,11 @@ export function useDeleteSchedule(appId: string) {
 export function useNotifications() {
   return useQuery({ queryKey: ['notifications'], queryFn: () => apiFetch<Notification[]>('/api/notifications'), refetchInterval: 10000 })
 }
+
+export function useMarkNotificationsRead() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (ids?: string[]) => apiFetch('/api/notifications', { method: 'PATCH', body: JSON.stringify({ ids }) }),
+    onSuccess: () => { qc.invalidateQueries({ queryKey: ['notifications'] }) },
+  })
+}
