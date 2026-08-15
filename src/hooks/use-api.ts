@@ -125,23 +125,26 @@ export function useFiles(appId: string | null, path: string = '/') {
 export function useUploadFiles(appId: string) {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: async ({ files, path }: { files: File[]; path: string }) => {
+    mutationFn: async ({ files, path: targetPath }: { files: File[]; path: string }) => {
       const formData = new FormData()
       files.forEach((f) => formData.append('files', f))
-      formData.append('path', path)
-      const res = await fetch(`/api/apps/${appId}/files/upload`, { method: 'POST', body: formData })
-      if (!res.ok) throw new Error('Upload failed')
+      formData.append('path', targetPath)
+      const res = await fetch(`/api/apps/${appId}/files?action=upload`, { method: 'POST', body: formData })
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: { message: 'Upload failed' } }))
+        throw new Error(err?.error?.message || 'Upload failed')
+      }
       return res.json()
     },
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['files', appId] }); toast.success('Files uploaded') },
-    onError: () => toast.error('Upload failed'),
+    onError: (err) => toast.error(err.message || 'Upload failed'),
   })
 }
 
 export function useCreateDirectory(appId: string) {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: ({ path, name }: { path: string; name: string }) => apiFetch(`/api/apps/${appId}/files/mkdir`, { method: 'POST', body: JSON.stringify({ path, name }) }),
+    mutationFn: ({ path, name }: { path: string; name: string }) => apiFetch(`/api/apps/${appId}/files?action=mkdir`, { method: 'POST', body: JSON.stringify({ path, name }) }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['files', appId] }); toast.success('Directory created') },
     onError: (err) => toast.error(err.message),
   })
@@ -159,7 +162,7 @@ export function useDeleteFile(appId: string) {
 export function useWriteFile(appId: string) {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: ({ path, content }: { path: string; content: string }) => apiFetch(`/api/apps/${appId}/files/write`, { method: 'POST', body: JSON.stringify({ path, content }) }),
+    mutationFn: ({ path, content }: { path: string; content: string }) => apiFetch(`/api/apps/${appId}/files?action=write`, { method: 'POST', body: JSON.stringify({ path, content }) }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['files', appId] }); toast.success('File saved') },
     onError: (err) => toast.error(err.message),
   })
@@ -168,7 +171,7 @@ export function useWriteFile(appId: string) {
 export function useRenameFile(appId: string) {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: ({ oldPath, newPath }: { oldPath: string; newPath: string }) => apiFetch(`/api/apps/${appId}/files/rename`, { method: 'POST', body: JSON.stringify({ oldPath, newPath }) }),
+    mutationFn: ({ oldPath, newPath }: { oldPath: string; newPath: string }) => apiFetch(`/api/apps/${appId}/files?action=rename`, { method: 'POST', body: JSON.stringify({ oldPath, newPath }) }),
     onSuccess: () => { qc.invalidateQueries({ queryKey: ['files', appId] }); toast.success('Renamed') },
     onError: (err) => toast.error(err.message),
   })

@@ -9,7 +9,6 @@ import {
   ScrollText,
   Sun,
   Moon,
-  Anvil,
   ChevronLeft,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -78,8 +77,8 @@ function TopBar() {
       <SidebarTrigger className="-ml-1" />
       <Separator orientation="vertical" className="mr-2 h-4" />
       <div className="flex items-center gap-1.5 font-semibold text-sm">
-        <Anvil className="h-5 w-5 text-emerald-500" />
-        <span>HostForge</span>
+        <img src="/logo.svg" alt="Wolf Host" className="h-5 w-5" />
+        <span>Wolf Host</span>
       </div>
       <div className="flex-1" />
       <button
@@ -111,11 +110,11 @@ function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" className="pointer-events-none">
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-emerald-500/10">
-                <Anvil className="size-4 text-emerald-500" />
+                <img src="/logo.svg" alt="" className="size-4" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">HostForge</span>
-                <span className="truncate text-xs text-muted-foreground">Hosting Platform</span>
+                <span className="truncate font-semibold">Wolf Host</span>
+                <span className="truncate text-xs text-muted-foreground">3MH TECHNOLOGIES</span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -149,7 +148,7 @@ function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton className="text-xs text-muted-foreground">
-              <span>HostForge v1.0</span>
+              <span>Wolf Host v1.0</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -209,7 +208,7 @@ function AppDetailSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton className="text-xs text-muted-foreground">
-              <span>HostForge v1.0</span>
+              <span>Wolf Host v1.0</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

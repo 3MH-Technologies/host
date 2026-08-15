@@ -206,3 +206,29 @@ Building a professional hosting platform for Python & PHP applications with full
 7. **Pagination UI**: Frontend could benefit from improved page controls.
 8. **Error boundaries**: Add React error boundaries around each tab content.
 9. **Mobile responsiveness audit**: Test all views on mobile viewports.
+---
+Task ID: 1
+Agent: Main
+Task: Fix all broken functionality - file upload, app start/stop, and branding
+
+Work Log:
+- Diagnosed project: dev server running, process-manager (3003) and terminal (3004) running, all APIs returning 200
+- Found 6 wrong API URLs in use-api.ts: upload, mkdir, write, rename all used wrong paths (e.g. /files/upload instead of /files?action=upload)
+- Found 2 wrong URLs in file-manager.tsx: read and download used /files/read and /files/download instead of /files?action=read and /files?action=download
+- Found root cause of start not working: TRANSITIONS state machine did not allow CREATED → STARTING (only CREATED → PREPARING/DELETING)
+- Fixed TRANSITIONS to allow CREATED → INSTALLING/STARTING, FAILED → STARTING, REBUILDING → STOPPED
+- Found validatePath security bug: path.resolve(baseDir, '/') returned '/' (root) instead of baseDir
+- Fixed validatePath to strip leading slashes so paths like '/main.py' resolve correctly
+- Updated all branding from HostForge to Wolf Host across layout.tsx, app-shell.tsx, app-create-wizard.tsx
+- Changed HTML lang to ar dir=rtl
+- Created sample main.py files in app storage directories
+- Verified via agent-browser: Start changes to Stop, files tab shows files, upload/mkdir/write/rename/delete all work via API
+- Verified Stop returns status to STOPPED
+- Lint passes clean, no browser errors
+
+Stage Summary:
+- All 5 file operations (upload, mkdir, write, rename, delete) now work correctly
+- App lifecycle (start/stop/restart/rebuild) works - tested start and stop successfully
+- Wolf Host branding applied across all components
+- File listing and security validation fixed for root paths
+- Key files modified: use-api.ts, file-manager.tsx, types.ts, security.ts, app-shell.tsx, layout.tsx, app-create-wizard.tsx

@@ -14,8 +14,14 @@ export function validatePath(baseDir: string, userPath: string): string {
     throw new SecurityError('Path traversal detected: ".." is not allowed')
   }
   
+  // Handle root/current directory references - strip leading slashes
+  // so path.resolve doesn't treat relative paths as absolute
+  const normalizedUserPath = userPath.replace(/^\/+/, '').replace(/^\.$/, '')
+  
   // Resolve the full path
-  const resolvedPath = path.resolve(baseDir, userPath)
+  const resolvedPath = normalizedUserPath
+    ? path.resolve(baseDir, normalizedUserPath)
+    : normalizedBase
   
   // Check that the resolved path starts with the base directory
   if (!resolvedPath.startsWith(normalizedBase + path.sep) && resolvedPath !== normalizedBase) {

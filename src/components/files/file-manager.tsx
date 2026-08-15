@@ -87,7 +87,7 @@ export function FileManager({ appId }: Props) {
 
   const fetchFileContent = async (path: string) => {
     try {
-      const res = await fetch(`/api/apps/${appId}/files/read?path=${encodeURIComponent(path)}`)
+      const res = await fetch(`/api/apps/${appId}/files?action=read&path=${encodeURIComponent(path)}`)
       if (!res.ok) throw new Error('Failed to read file')
       const data = await res.json()
       if (data.data?.content != null) {
@@ -156,7 +156,7 @@ export function FileManager({ appId }: Props) {
 
   const handleDownload = (entry: FileEntry) => {
     const path = currentPath === '/' ? `/${entry.name}` : `${currentPath}/${entry.name}`
-    window.open(`/api/apps/${appId}/files/download?path=${encodeURIComponent(path)}`, '_blank')
+    window.open(`/api/apps/${appId}/files?action=download&path=${encodeURIComponent(path)}`, '_blank')
   }
 
   return (

@@ -170,7 +170,7 @@ export function AppCreateWizard() {
         </Button>
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Create Application</h1>
-          <p className="text-sm text-muted-foreground">Deploy a new application to HostForge</p>
+          <p className="text-sm text-muted-foreground">Deploy a new application to Wolf Host</p>
         </div>
       </div>
 
