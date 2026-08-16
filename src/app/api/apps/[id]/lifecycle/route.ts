@@ -107,6 +107,45 @@ async function handleStart(app: any) {
     env[ev.key] = ev.value
   }
 
+  // Auto-install dependencies if installCmd exists
+  if (app.installCmd) {
+    try {
+      await db.application.update({
+        where: { id: app.id },
+        data: { status: 'INSTALLING' },
+      })
+      await createAuditLog(app.id, 'install', 'success', `Auto-installing dependencies before start for "${app.name}"`)
+
+      const installEnv: Record<string, string> = {}
+      for (const ev of app.envVars) {
+        if (ev.scope === 'all' || ev.scope === 'build') installEnv[ev.key] = ev.value
+      }
+
+      const { stdout, stderr } = await execAsync(app.installCmd, {
+        cwd: app.storagePath,
+        env: { ...process.env, ...installEnv },
+        timeout: 300000,
+      })
+
+      // Log install output to app.log
+      const logDir = path.join(process.cwd(), 'logs', app.id)
+      await fs.mkdir(logDir, { recursive: true })
+      const logFile = path.join(logDir, 'app.log')
+      await fs.appendFile(logFile, `[${new Date().toISOString()}] [INSTALL] ${stdout}\n`)
+      if (stderr) await fs.appendFile(logFile, `[${new Date().toISOString()}] [INSTALL STDERR] ${stderr}\n`)
+      await createAuditLog(app.id, 'install', 'success', `Dependencies installed for "${app.name}"`)
+    } catch (installError: unknown) {
+      const installErr = installError as { message?: string; stderr?: string }
+      const errorMsg = installErr?.message || 'Install command failed'
+      const stderrOutput = installErr?.stderr || ''
+      // Log the error but don't fail - user may have manually installed deps
+      const logDir = path.join(process.cwd(), 'logs', app.id)
+      await fs.mkdir(logDir, { recursive: true })
+      await fs.appendFile(path.join(logDir, 'app.log'), `[${new Date().toISOString()}] [INSTALL WARN] ${errorMsg}\n${stderrOutput}\n`)
+      await createAuditLog(app.id, 'install', 'failed', `Auto-install warning for "${app.name}": ${errorMsg} (continuing with start)`)
+    }
+  }
+
   // Update status to STARTING
   await db.application.update({
     where: { id: app.id },

@@ -20,14 +20,11 @@ const INACTIVITY_TIMEOUT_MS = 5 * 60 * 1000
 const MAX_OUTPUT_BYTES = 1 * 1024 * 1024
 const PORT = 3004
 
-const PROJECT_ROOT = path.resolve(import.meta.dir, '..', '..')
-const APPS_DIR = path.join(PROJECT_ROOT, 'apps')
-
 const sessions = new Map<string, TerminalSession>()
 
 const httpServer = createServer()
 const io = new Server(httpServer, {
-  path: '/',
+  path: '/socket.io',
   cors: { origin: '*', methods: ['GET', 'POST'] },
   pingTimeout: 60000,
   pingInterval: 25000,
@@ -56,25 +53,37 @@ function killSession(session: TerminalSession) {
   sessions.delete(session.id)
 }
 
-function ensureAppsDir() {
-  if (!fs.existsSync(APPS_DIR)) fs.mkdirSync(APPS_DIR, { recursive: true })
-}
-
 io.on('connection', (socket: Socket) => {
   console.log(`Terminal client connected: ${socket.id}`)
 
-  socket.on('terminal:join', (data: { appId: string }) => {
-    const { appId } = data
+  socket.on('terminal:join', (data: { appId: string; cwd?: string }) => {
+    const { appId, cwd } = data
     if (!appId || typeof appId !== 'string') {
       socket.emit('terminal:error', { message: 'appId is required' })
       return
     }
+
+    // Kill any existing session for this socket
     const existingSession = sessions.get(socket.id)
     if (existingSession) killSession(existingSession)
 
-    ensureAppsDir()
-    const appPath = path.join(APPS_DIR, appId)
-    if (!fs.existsSync(appPath)) fs.mkdirSync(appPath, { recursive: true })
+    // Use provided cwd or try to resolve from appId
+    let appPath = cwd || ''
+    if (!appPath) {
+      // Fallback: try to find app directory by slug patterns
+      const PROJECT_ROOT = path.resolve(import.meta.dir, '..', '..')
+      const APPS_DIR = path.join(PROJECT_ROOT, 'apps')
+      if (fs.existsSync(APPS_DIR)) {
+        appPath = APPS_DIR
+      } else {
+        appPath = PROJECT_ROOT
+      }
+    }
+
+    // Ensure directory exists
+    if (!fs.existsSync(appPath)) {
+      fs.mkdirSync(appPath, { recursive: true })
+    }
 
     const shellPath = fs.existsSync('/bin/bash') ? '/bin/bash' : '/bin/sh'
 
@@ -119,7 +128,7 @@ io.on('connection', (socket: Socket) => {
       })
 
       child.on('error', (err) => {
-        socket.emit('terminal:error', { message: err.message })
+        socket.emit('terminal:error', { message: `Failed to start terminal: ${err.message}` })
         socket.emit('terminal:exit', { code: -1 })
         console.error(`Terminal process error for ${appId}:`, err.message)
         if (session.timeout) { clearTimeout(session.timeout); session.timeout = null }
@@ -127,7 +136,7 @@ io.on('connection', (socket: Socket) => {
         sessions.delete(socket.id)
       })
 
-      console.log(`Terminal session created for ${appId} (socket: ${socket.id}, PID: ${child.pid})`)
+      console.log(`Terminal session created for ${appId} (socket: ${socket.id}, PID: ${child.pid}, cwd: ${appPath})`)
     } catch (err: any) {
       socket.emit('terminal:error', { message: `Failed to start terminal: ${err.message}` })
       console.error(`Failed to create terminal for ${appId}:`, err.message)
@@ -167,8 +176,7 @@ io.on('connection', (socket: Socket) => {
 
 httpServer.listen(PORT, () => {
   console.log(`Terminal Service running on port ${PORT}`)
-  console.log(`Project root: ${PROJECT_ROOT}`)
-  console.log(`Apps directory: ${APPS_DIR}`)
+  console.log(`Socket.IO path: /socket.io`)
 })
 
 function gracefulShutdown() {

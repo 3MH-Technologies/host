@@ -232,3 +232,30 @@ Stage Summary:
 - Wolf Host branding applied across all components
 - File listing and security validation fixed for root paths
 - Key files modified: use-api.ts, file-manager.tsx, types.ts, security.ts, app-shell.tsx, layout.tsx, app-create-wizard.tsx
+
+---
+Task ID: 2
+Agent: Main
+Task: Fix auto-install, terminal, status sync, and Python environment
+
+Work Log:
+- Added auto-install before start in lifecycle route - if installCmd exists, runs it before starting the app
+- Install output is logged to app.log with [INSTALL] prefix
+- Install failures don't block start (logs warning and continues)
+- Added DB status sync in monitoring endpoint: when process-manager reports crashed/stopped, updates DB status
+- Fixed terminal service: changed Socket.IO path from '/' to '/socket.io' (matching client), accept cwd parameter
+- Fixed terminal frontend: fetches app storagePath via useApp hook, passes it as cwd to terminal service
+- Terminal now shows loading skeleton until app data loads, shows directory name in toolbar
+- Added WebLinksAddon to terminal for clickable URLs
+- Fixed Python environment: system Python is managed by uv (3.12), pip3 pointed to wrong version
+- Updated all default Python commands to use 'uv pip install' for fast dependency installation
+- Updated all start commands to use 'python3' explicitly
+- Verified: uv pip installs pyrogram + tgcrypto in 61ms, python3 can import pyrogram successfully
+
+Stage Summary:
+- Auto-install on start: WORKING (uv pip install -r requirements.txt runs automatically)
+- Terminal: FIXED (correct Socket.IO path, passes storagePath as cwd)
+- Status sync: WORKING (monitoring endpoint syncs crashed/stopped to DB)
+- Python deps: WORKING (using uv for fast, correct installs)
+- App crashes expected when user code has no bot token (not a platform issue)
+- Files modified: lifecycle/route.ts, monitoring/route.ts, terminal-service/index.ts, terminal-view.tsx, constants.ts

@@ -2,8 +2,10 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { getTerminalSocket } from '@/lib/socket'
+import { useApp } from '@/hooks/use-api'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { toast } from 'sonner'
 import { Terminal as TerminalIcon, Copy, Trash2, RefreshCw, Wifi, WifiOff } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -13,6 +15,8 @@ interface Props {
 }
 
 export function TerminalView({ appId }: Props) {
+  const { data: appData } = useApp(appId)
+  const storagePath = (appData?.data as any)?.storagePath || ''
   const termRef = useRef<HTMLDivElement>(null)
   const xtermRef = useRef<any>(null)
   const socketRef = useRef<any>(null)
@@ -26,6 +30,7 @@ export function TerminalView({ appId }: Props) {
     try {
       const { Terminal } = await import('@xterm/xterm')
       const { FitAddon } = await import('@xterm/addon-fit')
+      const { WebLinksAddon } = await import('@xterm/addon-web-links')
 
       const term = new Terminal({
         theme: {
@@ -43,7 +48,9 @@ export function TerminalView({ appId }: Props) {
       })
 
       const fitAddon = new FitAddon()
+      const webLinksAddon = new WebLinksAddon()
       term.loadAddon(fitAddon)
+      term.loadAddon(webLinksAddon)
 
       if (termRef.current) {
         term.open(termRef.current)
@@ -97,7 +104,8 @@ export function TerminalView({ appId }: Props) {
     socket.on('connect', () => {
       setConnected(true)
       setConnecting(false)
-      socket.emit('terminal:join', { appId })
+      // Pass both appId and cwd (storagePath) to the terminal service
+      socket.emit('terminal:join', { appId, cwd: storagePath || undefined })
       xtermRef.current?.writeln('\x1b[32mConnected to terminal\x1b[0m\r\n')
     })
 
@@ -105,8 +113,8 @@ export function TerminalView({ appId }: Props) {
       xtermRef.current?.write(data)
     })
 
-    socket.on('terminal:exit', ({ exitCode }: { exitCode: number }) => {
-      xtermRef.current?.writeln(`\r\n\x1b[33mProcess exited with code ${exitCode}\x1b[0m\r\n`)
+    socket.on('terminal:exit', ({ code }: { exitCode: number }) => {
+      xtermRef.current?.writeln(`\r\n\x1b[33mProcess exited with code ${code}\x1b[0m\r\n`)
     })
 
     socket.on('disconnect', () => {
@@ -119,7 +127,7 @@ export function TerminalView({ appId }: Props) {
       setConnected(false)
       console.error('Terminal connection error:', err)
     })
-  }, [appId, initTerminal])
+  }, [appId, storagePath, initTerminal])
 
   const disconnect = useCallback(() => {
     const socket = socketRef.current
@@ -135,13 +143,14 @@ export function TerminalView({ appId }: Props) {
   }, [])
 
   useEffect(() => {
+    if (!storagePath) return // Wait for app data to load
     connectSocket()
     return () => {
       disconnect()
       xtermRef.current?.dispose()
       xtermRef.current = null
     }
-  }, [appId])
+  }, [appId, storagePath])
 
   useEffect(() => {
     const handleResize = () => {
@@ -160,12 +169,28 @@ export function TerminalView({ appId }: Props) {
     return () => window.removeEventListener('resize', handleResize)
   }, [appId])
 
+  if (!storagePath) {
+    return (
+      <Card className="overflow-hidden">
+        <div className="flex items-center gap-2 px-4 py-2 bg-zinc-900 border-b">
+          <TerminalIcon className="h-4 w-4 text-muted-foreground" />
+          <span className="text-sm font-medium">Terminal</span>
+          <div className="flex-1" />
+        </div>
+        <div className="flex items-center justify-center h-[500px] bg-[#09090b]">
+          <Skeleton className="h-6 w-48" />
+        </div>
+      </Card>
+    )
+  }
+
   return (
     <Card className="overflow-hidden">
       {/* Toolbar */}
       <div className="flex items-center gap-2 px-4 py-2 bg-zinc-900 border-b">
         <TerminalIcon className="h-4 w-4 text-muted-foreground" />
         <span className="text-sm font-medium">Terminal</span>
+        <span className="text-xs text-muted-foreground font-mono">{storagePath.split('/').pop()}</span>
         <div className="flex-1" />
         <div className={cn(
           'flex items-center gap-1.5 text-xs px-2 py-0.5 rounded-full',

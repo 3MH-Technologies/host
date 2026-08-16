@@ -9,39 +9,39 @@ export const DEFAULT_PHP_VERSION = '8.2'
 
 export const DEFAULT_RUNTIME_COMMANDS = {
   'python-web': {
-    install: 'pip install -r requirements.txt',
+    install: 'uv pip install -r requirements.txt',
     build: null,
-    start: 'python main.py',
+    start: 'python3 main.py',
     stop: null,
   },
   'python-bot': {
-    install: 'pip install -r requirements.txt',
+    install: 'uv pip install -r requirements.txt',
     build: null,
-    start: 'python main.py',
+    start: 'python3 main.py',
     stop: null,
   },
   'python-discord-bot': {
-    install: 'pip install -r requirements.txt',
+    install: 'uv pip install -r requirements.txt',
     build: null,
-    start: 'python main.py',
+    start: 'python3 main.py',
     stop: null,
   },
   'python-worker': {
-    install: 'pip install -r requirements.txt',
+    install: 'uv pip install -r requirements.txt',
     build: null,
-    start: 'python main.py',
+    start: 'python3 main.py',
     stop: null,
   },
   'python-api': {
-    install: 'pip install -r requirements.txt',
+    install: 'uv pip install -r requirements.txt',
     build: null,
-    start: 'uvicorn main:app --host 0.0.0.0 --port {port}',
+    start: 'python3 -m uvicorn main:app --host 0.0.0.0 --port {port}',
     stop: null,
   },
   'python-script': {
-    install: 'pip install -r requirements.txt',
+    install: 'uv pip install -r requirements.txt',
     build: null,
-    start: 'python main.py',
+    start: 'python3 main.py',
     stop: null,
   },
   'php-web': {

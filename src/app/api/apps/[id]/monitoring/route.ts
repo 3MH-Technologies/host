@@ -73,8 +73,22 @@ export async function GET(
         } else if (processInfo.status === 'crashed') {
           stats.healthStatus = 'unhealthy'
           stats.lastError = stats.lastError || `Process crashed with exit code ${processInfo.exitCode ?? 'unknown'}`
+          // Sync DB status when process has crashed
+          if (app.status === 'RUNNING' || app.status === 'STARTING') {
+            db.application.update({
+              where: { id },
+              data: { status: 'CRASHED', lastFailedAt: new Date(), lastError: stats.lastError, currentRestartCount: processInfo.restartCount ?? app.currentRestartCount },
+            }).catch(() => {})
+          }
         } else if (processInfo.status === 'stopped') {
           stats.healthStatus = 'unknown'
+          // Sync DB status when process has stopped
+          if (app.status === 'RUNNING' || app.status === 'STARTING' || app.status === 'STOPPING') {
+            db.application.update({
+              where: { id },
+              data: { status: 'STOPPED', lastStoppedAt: new Date(), currentRestartCount: processInfo.restartCount ?? app.currentRestartCount },
+            }).catch(() => {})
+          }
         }
       }
     } catch {
