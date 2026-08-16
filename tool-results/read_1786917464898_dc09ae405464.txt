@@ -1,0 +1,807 @@
+     1→     1→'use client'
+     2→     2→
+     3→     3→import React, { useState } from 'react'
+     4→     4→import { motion, AnimatePresence } from 'framer-motion'
+     5→     5→import {
+     6→     6→  Terminal,
+     7→     7→  Shield,
+     8→     8→  Zap,
+     9→     9→  Globe,
+    10→    10→  Server,
+    11→    11→  Cpu,
+    12→    12→  ArrowLeft,
+    13→    13→  Menu,
+    14→    14→  X,
+    15→    15→  Eye,
+    16→    16→  EyeOff,
+    17→    17→  Code2,
+    18→    18→  Database,
+    19→    19→  RefreshCcw,
+    20→    20→  ChevronLeft,
+    21→    21→} from 'lucide-react'
+    22→    22→import { Button } from '@/components/ui/button'
+    23→    23→import { Input } from '@/components/ui/input'
+    24→    24→import { Label } from '@/components/ui/label'
+    25→    25→import {
+    26→    26→  Dialog,
+    27→    27→  DialogContent,
+    28→    28→  DialogHeader,
+    29→    29→  DialogTitle,
+    30→    30→  DialogDescription,
+    31→    31→} from '@/components/ui/dialog'
+    32→    32→import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+    33→    33→
+    34→    34→/* ------------------------------------------------------------------ */
+    35→    35→/*  Animation variants                                                 */
+    36→    36→/* ------------------------------------------------------------------ */
+    37→    37→const fadeUp = {
+    38→    38→  hidden: { opacity: 0, y: 24 },
+    39→    39→  visible: (i: number) => ({
+    40→    40→    opacity: 1,
+    41→    41→    y: 0,
+    42→    42→    transition: { delay: i * 0.08, duration: 0.5, ease: 'easeOut' },
+    43→    43→  }),
+    44→    44→}
+    45→    45→
+    46→    46→/* ------------------------------------------------------------------ */
+    47→    47→/*  Feature data                                                       */
+    48→    48→/* ------------------------------------------------------------------ */
+    49→    49→const features = [
+    50→    50→  {
+    51→    51→    icon: Terminal,
+    52→    52→    title: 'وصول مباشر للطرفية',
+    53→    53→    desc: 'طرفية تفاعلية كاملة داخل المتصفح للتحكم في تطبيقاتك مباشرة.',
+    54→    54→  },
+    55→    55→  {
+    56→    56→    icon: Shield,
+    57→    57→    title: 'حماية متقدمة',
+    58→    58→    desc: 'تشفير كامل وعزل آمن لكل تطبيق على حدة.',
+    59→    59→  },
+    60→    60→  {
+    61→    61→    icon: Zap,
+    62→    62→    title: 'أداء فائق السرعة',
+    63→    63→    desc: 'بنية تحتية محسّنة لضمان أسرع استجابة ممكنة.',
+    64→    64→  },
+    65→    65→  {
+    66→    66→    icon: Globe,
+    67→    67→    title: 'نطاقات مخصصة',
+    68→    68→    desc: 'اربط نطاقك الخاص بتطبيقك بنقرة واحدة.',
+    69→    69→  },
+    70→    70→  {
+    71→    71→    icon: Database,
+    72→    72→    title: 'قواعد بيانات مدمجة',
+    73→    73→    desc: 'دعم SQLite و MySQL مع إدارة سهلة من لوحة التحكم.',
+    74→    74→  },
+    75→    75→  {
+    76→    76→    icon: RefreshCcw,
+    77→    77→    title: 'نشر تلقائي',
+    78→    78→    desc: 'أعد نشر تطبيقك تلقائيًا عند كل تغيير في الكود.',
+    79→    79→  },
+    80→    80→]
+    81→    81→
+    82→    82→const steps = [
+    83→    83→  {
+    84→    84→    num: '٠١',
+    85→    85→    title: 'أنشئ حسابك',
+    86→    86→    desc: 'سجّل في ثوانٍ وابدأ رحلتك مع Wolf Host.',
+    87→    87→  },
+    88→    88→  {
+    89→    89→    num: '٠٢',
+    90→    90→    title: 'ارفع تطبيقك',
+    91→    91→    desc: 'ارفع مشروع Python أو PHP الخاص بك بسهولة.',
+    92→    92→  },
+    93→    93→  {
+    94→    94→    num: '٠٣',
+    95→    95→    title: 'انطلق!',
+    96→    96→    desc: 'تطبيقك يعمل مباشرة على الإنترنت.',
+    97→    97→  },
+    98→    98→]
+    99→    99→
+   100→   100→/* ------------------------------------------------------------------ */
+   101→   101→/*  Auth Dialog                                                        */
+   102→   102→/* ------------------------------------------------------------------ */
+   103→   103→function AuthDialog({
+   104→   104→  open,
+   105→   105→  onOpenChange,
+   106→   106→  defaultTab = 'login',
+   107→   107→}: {
+   108→   108→  open: boolean
+   109→   109→  onOpenChange: (v: boolean) => void
+   110→   110→  defaultTab?: 'login' | 'register'
+   111→   111→}) {
+   112→   112→  const [showPass, setShowPass] = useState(false)
+   113→   113→
+   114→   114→  return (
+   115→   115→    <Dialog open={open} onOpenChange={onOpenChange}>
+   116→   116→      <DialogContent className="sm:max-w-md border-border/50 bg-card/95 backdrop-blur-xl">
+   117→   117→        <DialogHeader className="text-center sm:text-center">
+   118→   118→          <DialogTitle className="text-xl font-bold">
+   119→   119→            {defaultTab === 'login' ? 'تسجيل الدخول' : 'إنشاء حساب جديد'}
+   120→   120→          </DialogTitle>
+   121→   121→          <DialogDescription className="text-muted-foreground">
+   122→   122→            {defaultTab === 'login'
+   123→   123→              ? 'ادخل إلى حسابك للمتابعة'
+   124→   124→              : 'ابدأ رحلتك مع Wolf Host مجانًا'}
+   125→   125→          </DialogDescription>
+   126→   126→        </DialogHeader>
+   127→   127→
+   128→   128→        <Tabs defaultValue={defaultTab} className="mt-2">
+   129→   129→          <TabsList className="w-full h-11 rounded-lg">
+   130→   130→            <TabsTrigger value="login" className="flex-1 text-sm">
+   131→   131→              تسجيل الدخول
+   132→   132→            </TabsTrigger>
+   133→   133→            <TabsTrigger value="register" className="flex-1 text-sm">
+   134→   134→              حساب جديد
+   135→   135→            </TabsTrigger>
+   136→   136→          </TabsList>
+   137→   137→
+   138→   138→          {/* ---- LOGIN ---- */}
+   139→   139→          <TabsContent value="login">
+   140→   140→            <form
+   141→   141→              className="mt-4 flex flex-col gap-4"
+   142→   142→              onSubmit={(e) => e.preventDefault()}
+   143→   143→            >
+   144→   144→              <div className="flex flex-col gap-2">
+   145→   145→                <Label htmlFor="login-email">البريد الإلكتروني</Label>
+   146→   146→                <Input
+   147→   147→                  id="login-email"
+   148→   148→                  type="email"
+   149→   149→                  placeholder="you@example.com"
+   150→   150→                  dir="ltr"
+   151→   151→                  className="text-left"
+   152→   152→                />
+   153→   153→              </div>
+   154→   154→              <div className="flex flex-col gap-2">
+   155→   155→                <Label htmlFor="login-pass">كلمة المرور</Label>
+   156→   156→                <div className="relative">
+   157→   157→                  <Input
+   158→   158→                    id="login-pass"
+   159→   159→                    type={showPass ? 'text' : 'password'}
+   160→   160→                    placeholder="••••••••"
+   161→   161→                    dir="ltr"
+   162→   162→                    className="text-left ps-10"
+   163→   163→                  />
+   164→   164→                  <button
+   165→   165→                    type="button"
+   166→   166→                    onClick={() => setShowPass(!showPass)}
+   167→   167→                    className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+   168→   168→                    tabIndex={-1}
+   169→   169→                  >
+   170→   170→                    {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
+   171→   171→                  </button>
+   172→   172→                </div>
+   173→   173→              </div>
+   174→   174→              <Button
+   175→   175→                type="submit"
+   176→   176→                className="mt-1 h-11 w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium rounded-lg"
+   177→   177→              >
+   178→   178→                تسجيل الدخول
+   179→   179→              </Button>
+   180→   180→            </form>
+   181→   181→          </TabsContent>
+   182→   182→
+   183→   183→          {/* ---- REGISTER ---- */}
+   184→   184→          <TabsContent value="register">
+   185→   185→            <form
+   186→   186→              className="mt-4 flex flex-col gap-4"
+   187→   187→              onSubmit={(e) => e.preventDefault()}
+   188→   188→            >
+   189→   189→              <div className="flex flex-col gap-2">
+   190→   190→                <Label htmlFor="reg-name">الاسم الكامل</Label>
+   191→   191→                <Input
+   192→   192→                  id="reg-name"
+   193→   193→                  type="text"
+   194→   194→                  placeholder="أحمد محمد"
+   195→   195→                />
+   196→   196→              </div>
+   197→   197→              <div className="flex flex-col gap-2">
+   198→   198→                <Label htmlFor="reg-email">البريد الإلكتروني</Label>
+   199→   199→                <Input
+   200→   200→                  id="reg-email"
+   201→   201→                  type="email"
+   202→   202→                  placeholder="you@example.com"
+   203→   203→                  dir="ltr"
+   204→   204→                  className="text-left"
+   205→   205→                />
+   206→   206→              </div>
+   207→   207→              <div className="flex flex-col gap-2">
+   208→   208→                <Label htmlFor="reg-pass">كلمة المرور</Label>
+   209→   209→                <div className="relative">
+   210→   210→                  <Input
+   211→   211→                    id="reg-pass"
+   212→   212→                    type={showPass ? 'text' : 'password'}
+   213→   213→                    placeholder="••••••••"
+   214→   214→                    dir="ltr"
+   215→   215→                    className="text-left ps-10"
+   216→   216→                  />
+   217→   217→                  <button
+   218→   218→                    type="button"
+   219→   219→                    onClick={() => setShowPass(!showPass)}
+   220→   220→                    className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+   221→   221→                    tabIndex={-1}
+   222→   222→                  >
+   223→   223→                    {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
+   224→   224→                  </button>
+   225→   225→                </div>
+   226→   226→              </div>
+   227→   227→              <Button
+   228→   228→                type="submit"
+   229→   229→                className="mt-1 h-11 w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium rounded-lg"
+   230→   230→              >
+   231→   231→                إنشاء الحساب
+   232→   232→              </Button>
+   233→   233→            </form>
+   234→   234→          </TabsContent>
+   235→   235→        </Tabs>
+   236→   236→      </DialogContent>
+   237→   237→    </Dialog>
+   238→   238→  )
+   239→   239→}
+   240→   240→
+   241→   241→/* ------------------------------------------------------------------ */
+   242→   242→/*  Main Landing Page                                                  */
+   243→   243→/* ------------------------------------------------------------------ */
+   244→   244→export function LandingPage() {
+   245→   245→  const [authOpen, setAuthOpen] = useState(false)
+   246→   246→  const [authTab, setAuthTab] = useState<'login' | 'register'>('login')
+   247→   247→  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+   248→   248→
+   249→   249→  const openAuth = (tab: 'login' | 'register') => {
+   250→   250→    setAuthTab(tab)
+   251→   251→    setAuthOpen(true)
+   252→   252→  }
+   253→   253→
+   254→   254→  return (
+   255→   255→    <div className="min-h-screen flex flex-col bg-background text-foreground">
+   256→   256→      {/* ============ NAVBAR ============ */}
+   257→   257→      <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl">
+   258→   258→        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+   259→   259→          {/* Logo */}
+   260→   260→          <div className="flex items-center gap-2.5">
+   261→   261→            <img src="/logo.svg" alt="Wolf Host" className="h-8 w-auto" />
+   262→   262→            <span className="text-lg font-bold tracking-tight">
+   263→   263→              Wolf <span className="text-emerald-500">Host</span>
+   264→   264→            </span>
+   265→   265→          </div>
+   266→   266→
+   267→   267→          {/* Desktop Nav */}
+   268→   268→          <div className="hidden md:flex items-center gap-8">
+   269→   269→            <a
+   270→   270→              href="#features"
+   271→   271→              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+   272→   272→            >
+   273→   273→              المميزات
+   274→   274→            </a>
+   275→   275→            <a
+   276→   276→              href="#how-it-works"
+   277→   277→              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+   278→   278→            >
+   279→   279→              كيف يعمل
+   280→   280→            </a>
+   281→   281→            <a
+   282→   282→              href="#pricing"
+   283→   283→              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+   284→   284→            >
+   285→   285→              الأسعار
+   286→   286→            </a>
+   287→   287→          </div>
+   288→   288→
+   289→   289→          {/* Desktop Auth */}
+   290→   290→          <div className="hidden md:flex items-center gap-3">
+   291→   291→            <Button
+   292→   292→              variant="ghost"
+   293→   293→              size="sm"
+   294→   294→              onClick={() => openAuth('login')}
+   295→   295→              className="text-muted-foreground hover:text-foreground"
+   296→   296→            >
+   297→   297→              تسجيل الدخول
+   298→   298→            </Button>
+   299→   299→            <Button
+   300→   300→              size="sm"
+   301→   301→              onClick={() => openAuth('register')}
+   302→   302→              className="bg-emerald-600 hover:bg-emerald-500 text-white font-medium"
+   303→   303→            >
+   304→   304→              ابدأ مجانًا
+   305→   305→            </Button>
+   306→   306→          </div>
+   307→   307→
+   308→   308→          {/* Mobile Menu Button */}
+   309→   309→          <button
+   310→   310→            className="md:hidden text-muted-foreground hover:text-foreground"
+   311→   311→            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+   312→   312→          >
+   313→   313→            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+   314→   314→          </button>
+   315→   315→        </nav>
+   316→   316→
+   317→   317→        {/* Mobile Menu */}
+   318→   318→        <AnimatePresence>
+   319→   319→          {mobileMenuOpen && (
+   320→   320→            <motion.div
+   321→   321→              initial={{ height: 0, opacity: 0 }}
+   322→   322→              animate={{ height: 'auto', opacity: 1 }}
+   323→   323→              exit={{ height: 0, opacity: 0 }}
+   324→   324→              className="md:hidden overflow-hidden border-t border-border/40 bg-background/95 backdrop-blur-xl"
+   325→   325→            >
+   326→   326→              <div className="flex flex-col gap-1 px-4 py-4">
+   327→   327→                <a
+   328→   328→                  href="#features"
+   329→   329→                  onClick={() => setMobileMenuOpen(false)}
+   330→   330→                  className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+   331→   331→                >
+   332→   332→                  المميزات
+   333→   333→                </a>
+   334→   334→                <a
+   335→   335→                  href="#how-it-works"
+   336→   336→                  onClick={() => setMobileMenuOpen(false)}
+   337→   337→                  className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+   338→   338→                >
+   339→   339→                  كيف يعمل
+   340→   340→                </a>
+   341→   341→                <a
+   342→   342→                  href="#pricing"
+   343→   343→                  onClick={() => setMobileMenuOpen(false)}
+   344→   344→                  className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+   345→   345→                >
+   346→   346→                  الأسعار
+   347→   347→                </a>
+   348→   348→                <div className="mt-3 flex flex-col gap-2 border-t border-border/40 pt-3">
+   349→   349→                  <Button
+   350→   350→                    variant="outline"
+   351→   351→                    onClick={() => {
+   352→   352→                      setMobileMenuOpen(false)
+   353→   353→                      openAuth('login')
+   354→   354→                    }}
+   355→   355→                    className="w-full"
+   356→   356→                  >
+   357→   357→                    تسجيل الدخول
+   358→   358→                  </Button>
+   359→   359→                  <Button
+   360→   360→                    onClick={() => {
+   361→   361→                      setMobileMenuOpen(false)
+   362→   362→                      openAuth('register')
+   363→   363→                    }}
+   364→   364→                    className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium"
+   365→   365→                  >
+   366→   366→                    ابدأ مجانًا
+   367→   367→                  </Button>
+   368→   368→                </div>
+   369→   369→              </div>
+   370→   370→            </motion.div>
+   371→   371→          )}
+   372→   372→        </AnimatePresence>
+   373→   373→      </header>
+   374→   374→
+   375→   375→      {/* ============ HERO ============ */}
+   376→   376→      <main className="flex-1">
+   377→   377→        <section className="relative overflow-hidden">
+   378→   378→          {/* Subtle gradient orbs */}
+   379→   379→          <div className="pointer-events-none absolute inset-0 -z-10">
+   380→   380→            <div className="absolute top-[-20%] start-[10%] h-[500px] w-[500px] rounded-full bg-emerald-500/[0.07] blur-[120px]" />
+   381→   381→            <div className="absolute bottom-[-10%] end-[5%] h-[400px] w-[400px] rounded-full bg-emerald-500/[0.04] blur-[100px]" />
+   382→   382→          </div>
+   383→   383→
+   384→   384→          <div className="mx-auto max-w-6xl px-4 sm:px-6 py-24 sm:py-32 lg:py-40">
+   385→   385→            <motion.div
+   386→   386→              className="flex flex-col items-center text-center"
+   387→   387→              initial="hidden"
+   388→   388→              animate="visible"
+   389→   389→            >
+   390→   390→              {/* Badge */}
+   391→   391→              <motion.div custom={0} variants={fadeUp} className="mb-6">
+   392→   392→                <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-1.5 text-xs font-medium text-emerald-400">
+   393→   393→                  <Server size={14} />
+   394→   394→                  منصة استضافة تطبيقات Python و PHP
+   395→   395→                </span>
+   396→   396→              </motion.div>
+   397→   397→
+   398→   398→              {/* Headline */}
+   399→   399→              <motion.h1
+   400→   400→                custom={1}
+   401→   401→                variants={fadeUp}
+   402→   402→                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight max-w-3xl"
+   403→   403→              >
+   404→   404→                استضف تطبيقاتك{' '}
+   405→   405→                <span className="text-transparent bg-clip-text bg-gradient-to-b from-emerald-400 to-emerald-600">
+   406→   406→                  بذكاء
+   407→   407→                </span>
+   408→   408→              </motion.h1>
+   409→   409→
+   410→   410→              {/* Subtitle */}
+   411→   411→              <motion.p
+   412→   412→                custom={2}
+   413→   413→                variants={fadeUp}
+   414→   414→                className="mt-6 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed"
+   415→   415→              >
+   416→   416→                منصة سحابية متكاملة لنشر وإدارة تطبيقات Python و PHP.
+   417→   417→                واجهة بسيطة، أداء عالي، وبدون تعقيدات.
+   418→   418→              </motion.p>
+   419→   419→
+   420→   420→              {/* CTAs */}
+   421→   421→              <motion.div
+   422→   422→                custom={3}
+   423→   423→                variants={fadeUp}
+   424→   424→                className="mt-10 flex flex-col sm:flex-row items-center gap-3"
+   425→   425→              >
+   426→   426→                <Button
+   427→   427→                  size="lg"
+   428→   428→                  onClick={() => openAuth('register')}
+   429→   429→                  className="h-12 px-8 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-base"
+   430→   430→                >
+   431→   431→                  ابدأ مجانًا
+   432→   432→                  <ArrowLeft size={18} className="ms-2" />
+   433→   433→                </Button>
+   434→   434→                <Button
+   435→   435→                  variant="outline"
+   436→   436→                  size="lg"
+   437→   437→                  onClick={() => openAuth('login')}
+   438→   438→                  className="h-12 px-8 rounded-lg text-base"
+   439→   439→                >
+   440→   440→                  تسجيل الدخول
+   441→   441→                </Button>
+   442→   442→              </motion.div>
+   443→   443→
+   444→   444→              {/* Tech badges */}
+   445→   445→              <motion.div
+   446→   446→                custom={4}
+   447→   447→                variants={fadeUp}
+   448→   448→                className="mt-14 flex flex-wrap items-center justify-center gap-3"
+   449→   449→              >
+   450→   450→                {['Python', 'PHP', 'Flask', 'Django', 'Laravel'].map(
+   451→   451→                  (tech) => (
+   452→   452→                    <span
+   453→   453→                      key={tech}
+   454→   454→                      className="inline-flex items-center gap-1.5 rounded-md border border-border/50 bg-muted/30 px-3 py-1.5 text-xs text-muted-foreground"
+   455→   455→                    >
+   456→   456→                      <Code2 size={12} className="text-emerald-500" />
+   457→   457→                      {tech}
+   458→   458→                    </span>
+   459→   459→                  ),
+   460→   460→                )}
+   461→   461→              </motion.div>
+   462→   462→            </motion.div>
+   463→   463→          </div>
+   464→   464→        </section>
+   465→   465→
+   466→   466→        {/* ============ FEATURES ============ */}
+   467→   467→        <section id="features" className="border-t border-border/30">
+   468→   468→          <div className="mx-auto max-w-6xl px-4 sm:px-6 py-24 sm:py-32">
+   469→   469→            <motion.div
+   470→   470→              className="text-center mb-16"
+   471→   471→              initial="hidden"
+   472→   472→              whileInView="visible"
+   473→   473→              viewport={{ once: true, amount: 0.3 }}
+   474→   474→            >
+   475→   475→              <motion.p
+   476→   476→                custom={0}
+   477→   477→                variants={fadeUp}
+   478→   478→                className="text-sm font-medium text-emerald-500 mb-3"
+   479→   479→              >
+   480→   480→                المميزات
+   481→   481→              </motion.p>
+   482→   482→              <motion.h2
+   483→   483→                custom={1}
+   484→   484→                variants={fadeUp}
+   485→   485→                className="text-3xl sm:text-4xl font-bold tracking-tight"
+   486→   486→              >
+   487→   487→                كل ما تحتاجه في مكان واحد
+   488→   488→              </motion.h2>
+   489→   489→              <motion.p
+   490→   490→                custom={2}
+   491→   491→                variants={fadeUp}
+   492→   492→                className="mt-4 text-muted-foreground max-w-lg mx-auto"
+   493→   493→              >
+   494→   494→                أدوات قوية ومبنية بعناية لتسهيل عملية نشر وإدارة تطبيقاتك.
+   495→   495→              </motion.p>
+   496→   496→            </motion.div>
+   497→   497→
+   498→   498→            <motion.div
+   499→   499→              className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+   500→   500→              initial="hidden"
+   501→   501→              whileInView="visible"
+   502→   502→              viewport={{ once: true, amount: 0.1 }}
+   503→   503→            >
+   504→   504→              {features.map((f, i) => (
+   505→   505→                <motion.div
+   506→   506→                  key={f.title}
+   507→   507→                  custom={i}
+   508→   508→                  variants={fadeUp}
+   509→   509→                  className="group relative rounded-xl border border-border/40 bg-card/50 p-6 transition-colors hover:border-emerald-500/20 hover:bg-card/80"
+   510→   510→                >
+   511→   511→                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500 transition-colors group-hover:bg-emerald-500/15">
+   512→   512→                    <f.icon size={20} />
+   513→   513→                  </div>
+   514→   514→                  <h3 className="text-base font-semibold mb-1.5">{f.title}</h3>
+   515→   515→                  <p className="text-sm text-muted-foreground leading-relaxed">
+   516→   516→                    {f.desc}
+   517→   517→                  </p>
+   518→   518→                </motion.div>
+   519→   519→              ))}
+   520→   520→            </motion.div>
+   521→   521→          </div>
+   522→   522→        </section>
+   523→   523→
+   524→   524→        {/* ============ HOW IT WORKS ============ */}
+   525→   525→        <section id="how-it-works" className="border-t border-border/30">
+   526→   526→          <div className="mx-auto max-w-6xl px-4 sm:px-6 py-24 sm:py-32">
+   527→   527→            <motion.div
+   528→   528→              className="text-center mb-16"
+   529→   529→              initial="hidden"
+   530→   530→              whileInView="visible"
+   531→   531→              viewport={{ once: true, amount: 0.3 }}
+   532→   532→            >
+   533→   533→              <motion.p
+   534→   534→                custom={0}
+   535→   535→                variants={fadeUp}
+   536→   536→                className="text-sm font-medium text-emerald-500 mb-3"
+   537→   537→              >
+   538→   538→                كيف يعمل
+   539→   539→              </motion.p>
+   540→   540→              <motion.h2
+   541→   541→                custom={1}
+   542→   542→                variants={fadeUp}
+   543→   543→                className="text-3xl sm:text-4xl font-bold tracking-tight"
+   544→   544→              >
+   545→   545→                ثلاث خطوات فقط
+   546→   546→              </motion.h2>
+   547→   547→            </motion.div>
+   548→   548→
+   549→   549→            <motion.div
+   550→   550→              className="grid gap-8 sm:grid-cols-3"
+   551→   551→              initial="hidden"
+   552→   552→              whileInView="visible"
+   553→   553→              viewport={{ once: true, amount: 0.1 }}
+   554→   554→            >
+   555→   555→              {steps.map((s, i) => (
+   556→   556→                <motion.div
+   557→   557→                  key={s.num}
+   558→   558→                  custom={i}
+   559→   559→                  variants={fadeUp}
+   560→   560→                  className="flex flex-col items-center text-center"
+   561→   561→                >
+   562→   562→                  <span className="text-4xl font-extrabold text-emerald-500/20">
+   563→   563→                    {s.num}
+   564→   564→                  </span>
+   565→   565→                  <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
+   566→   566→                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-xs">
+   567→   567→                    {s.desc}
+   568→   568→                  </p>
+   569→   569→                  {i < steps.length - 1 && (
+   570→   570→                    <ChevronLeft
+   571→   571→                      size={20}
+   572→   572→                      className="mt-6 hidden sm:block text-emerald-500/30"
+   573→   573→                    />
+   574→   574→                  )}
+   575→   575→                </motion.div>
+   576→   576→              ))}
+   577→   577→            </motion.div>
+   578→   578→          </div>
+   579→   579→        </section>
+   580→   580→
+   581→   581→        {/* ============ PRICING PREVIEW ============ */}
+   582→   582→        <section id="pricing" className="border-t border-border/30">
+   583→   583→          <div className="mx-auto max-w-6xl px-4 sm:px-6 py-24 sm:py-32">
+   584→   584→            <motion.div
+   585→   585→              className="text-center mb-16"
+   586→   586→              initial="hidden"
+   587→   587→              whileInView="visible"
+   588→   588→              viewport={{ once: true, amount: 0.3 }}
+   589→   589→            >
+   590→   590→              <motion.p
+   591→   591→                custom={0}
+   592→   592→                variants={fadeUp}
+   593→   593→                className="text-sm font-medium text-emerald-500 mb-3"
+   594→   594→              >
+   595→   595→                الأسعار
+   596→   596→              </motion.p>
+   597→   597→              <motion.h2
+   598→   598→                custom={1}
+   599→   599→                variants={fadeUp}
+   600→   600→                className="text-3xl sm:text-4xl font-bold tracking-tight"
+   601→   601→              >
+   602→   602→                خطط تناسب احتياجاتك
+   603→   603→              </motion.h2>
+   604→   604→              <motion.p
+   605→   605→                custom={2}
+   606→   606→                variants={fadeUp}
+   607→   607→                className="mt-4 text-muted-foreground max-w-lg mx-auto"
+   608→   608→              >
+   609→   609→                ابدأ مجانًا وقم بالترقية عندما تحتاج المزيد.
+   610→   610→              </motion.p>
+   611→   611→            </motion.div>
+   612→   612→
+   613→   613→            <motion.div
+   614→   614→              className="grid gap-6 sm:grid-cols-3 max-w-4xl mx-auto"
+   615→   615→              initial="hidden"
+   616→   616→              whileInView="visible"
+   617→   617→              viewport={{ once: true, amount: 0.1 }}
+   618→   618→            >
+   619→   619→              {/* Free */}
+   620→   620→              <motion.div
+   621→   621→                custom={0}
+   622→   622→                variants={fadeUp}
+   623→   623→                className="rounded-xl border border-border/40 bg-card/50 p-6 flex flex-col"
+   624→   624→              >
+   625→   625→                <h3 className="text-base font-semibold">مجاني</h3>
+   626→   626→                <div className="mt-4 flex items-baseline gap-1">
+   627→   627→                  <span className="text-3xl font-extrabold">٠</span>
+   628→   628→                  <span className="text-sm text-muted-foreground">ر.س / شهريًا</span>
+   629→   629→                </div>
+   630→   630→                <ul className="mt-6 flex flex-col gap-3 flex-1">
+   631→   631→                  {['تطبيق واحد', '٥١٢ ميغابايت RAM', 'نطاق فرعي مجاني'].map(
+   632→   632→                    (item) => (
+   633→   633→                      <li
+   634→   634→                        key={item}
+   635→   635→                        className="flex items-center gap-2 text-sm text-muted-foreground"
+   636→   636→                      >
+   637→   637→                        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+   638→   638→                        {item}
+   639→   639→                      </li>
+   640→   640→                    ),
+   641→   641→                  )}
+   642→   642→                </ul>
+   643→   643→                <Button
+   644→   644→                  variant="outline"
+   645→   645→                  className="mt-8 w-full rounded-lg"
+   646→   646→                  onClick={() => openAuth('register')}
+   647→   647→                >
+   648→   648→                  ابدأ مجانًا
+   649→   649→                </Button>
+   650→   650→              </motion.div>
+   651→   651→
+   652→   652→              {/* Pro - Highlighted */}
+   653→   653→              <motion.div
+   654→   654→                custom={1}
+   655→   655→                variants={fadeUp}
+   656→   656→                className="relative rounded-xl border border-emerald-500/30 bg-card/80 p-6 flex flex-col ring-1 ring-emerald-500/10"
+   657→   657→              >
+   658→   658→                <span className="absolute -top-3 start-6 inline-flex items-center rounded-full bg-emerald-600 px-3 py-0.5 text-xs font-medium text-white">
+   659→   659→                  الأكثر شعبية
+   660→   660→                </span>
+   661→   661→                <h3 className="text-base font-semibold">احترافي</h3>
+   662→   662→                <div className="mt-4 flex items-baseline gap-1">
+   663→   663→                  <span className="text-3xl font-extrabold">٤٩</span>
+   664→   664→                  <span className="text-sm text-muted-foreground">ر.س / شهريًا</span>
+   665→   665→                </div>
+   666→   666→                <ul className="mt-6 flex flex-col gap-3 flex-1">
+   667→   667→                  {[
+   668→   668→                    '٥ تطبيقات',
+   669→   669→                    '٢ جيجابايت RAM',
+   670→   670→                    'نطاق مخصص',
+   671→   671→                    'شهادة SSL مجانية',
+   672→   672→                    'نسخ احتياطي تلقائي',
+   673→   673→                  ].map((item) => (
+   674→   674→                    <li
+   675→   675→                      key={item}
+   676→   676→                      className="flex items-center gap-2 text-sm text-muted-foreground"
+   677→   677→                    >
+   678→   678→                      <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+   679→   679→                      {item}
+   680→   680→                    </li>
+   681→   681→                  ))}
+   682→   682→                </ul>
+   683→   683→                <Button
+   684→   684→                  className="mt-8 w-full rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium"
+   685→   685→                  onClick={() => openAuth('register')}
+   686→   686→                >
+   687→   687→                  ابدأ الآن
+   688→   688→                </Button>
+   689→   689→              </motion.div>
+   690→   690→
+   691→   691→              {/* Enterprise */}
+   692→   692→              <motion.div
+   693→   693→                custom={2}
+   694→   694→                variants={fadeUp}
+   695→   695→                className="rounded-xl border border-border/40 bg-card/50 p-6 flex flex-col"
+   696→   696→              >
+   697→   697→                <h3 className="text-base font-semibold">المؤسسات</h3>
+   698→   698→                <div className="mt-4 flex items-baseline gap-1">
+   699→   699→                  <span className="text-3xl font-extrabold">مخصص</span>
+   700→   700→                </div>
+   701→   701→                <ul className="mt-6 flex flex-col gap-3 flex-1">
+   702→   702→                  {[
+   703→   703→                    'تطبيقات غير محدودة',
+   704→   704→                    'RAM مخصص',
+   705→   705→                    'دعم فني على مدار الساعة',
+   706→   706→                    'SLA مضمون',
+   707→   707→                  ].map((item) => (
+   708→   708→                    <li
+   709→   709→                      key={item}
+   710→   710→                      className="flex items-center gap-2 text-sm text-muted-foreground"
+   711→   711→                    >
+   712→   712→                      <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+   713→   713→                      {item}
+   714→   714→                    </li>
+   715→   715→                  ))}
+   716→   716→                </ul>
+   717→   717→                <Button
+   718→   718→                  variant="outline"
+   719→   719→                  className="mt-8 w-full rounded-lg"
+   720→   720→                  onClick={() => openAuth('register')}
+   721→   721→                >
+   722→   722→                  تواصل معنا
+   723→   723→                </Button>
+   724→   724→              </motion.div>
+   725→   725→            </motion.div>
+   726→   726→          </div>
+   727→   727→        </section>
+   728→   728→
+   729→   729→        {/* ============ FINAL CTA ============ */}
+   730→   730→        <section className="border-t border-border/30">
+   731→   731→          <div className="mx-auto max-w-6xl px-4 sm:px-6 py-24 sm:py-32">
+   732→   732→            <motion.div
+   733→   733→              className="relative overflow-hidden rounded-2xl border border-emerald-500/20 bg-gradient-to-b from-emerald-500/5 to-transparent p-10 sm:p-16 text-center"
+   734→   734→              initial="hidden"
+   735→   735→              whileInView="visible"
+   736→   736→              viewport={{ once: true, amount: 0.3 }}
+   737→   737→            >
+   738→   738→              {/* Background glow */}
+   739→   739→              <div className="pointer-events-none absolute inset-0 -z-10">
+   740→   740→                <div className="absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 h-[300px] w-[500px] rounded-full bg-emerald-500/10 blur-[100px]" />
+   741→   741→              </div>
+   742→   742→
+   743→   743→              <motion.h2
+   744→   744→                custom={0}
+   745→   745→                variants={fadeUp}
+   746→   746→                className="text-3xl sm:text-4xl font-bold tracking-tight"
+   747→   747→              >
+   748→   748→                جاهز لبدء النشر؟
+   749→   749→              </motion.h2>
+   750→   750→              <motion.p
+   751→   751→                custom={1}
+   752→   752→                variants={fadeUp}
+   753→   753→                className="mt-4 text-muted-foreground max-w-md mx-auto"
+   754→   754→              >
+   755→   755→                انضم إلى آلاف المطورين الذين يثقون بـ Wolf Host لاستضافة تطبيقاتهم.
+   756→   756→              </motion.p>
+   757→   757→              <motion.div custom={2} variants={fadeUp} className="mt-8">
+   758→   758→                <Button
+   759→   759→                  size="lg"
+   760→   760→                  onClick={() => openAuth('register')}
+   761→   761→                  className="h-12 px-8 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg text-base"
+   762→   762→                >
+   763→   763→                  إنشاء حساب مجاني
+   764→   764→                  <ArrowLeft size={18} className="ms-2" />
+   765→   765→                </Button>
+   766→   766→              </motion.div>
+   767→   767→            </motion.div>
+   768→   768→          </div>
+   769→   769→        </section>
+   770→   770→      </main>
+   771→   771→
+   772→   772→      {/* ============ FOOTER ============ */}
+   773→   773→      <footer className="border-t border-border/30">
+   774→   774→        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+   775→   775→          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+   776→   776→            <div className="flex items-center gap-2.5">
+   777→   777→              <img src="/logo.svg" alt="Wolf Host" className="h-6 w-auto" />
+   778→   778→              <span className="text-sm font-semibold">
+   779→   779→                Wolf <span className="text-emerald-500">Host</span>
+   780→   780→              </span>
+   781→   781→            </div>
+   782→   782→
+   783→   783→            <div className="flex items-center gap-6 text-sm text-muted-foreground">
+   784→   784→              <a href="#features" className="hover:text-foreground transition-colors">
+   785→   785→                المميزات
+   786→   786→              </a>
+   787→   787→              <a href="#pricing" className="hover:text-foreground transition-colors">
+   788→   788→                الأسعار
+   789→   789→              </a>
+   790→   790→              <a href="#how-it-works" className="hover:text-foreground transition-colors">
+   791→   791→                كيف يعمل
+   792→   792→              </a>
+   793→   793→            </div>
+   794→   794→
+   795→   795→            <p className="text-xs text-muted-foreground">
+   796→   796→              © {new Date().getFullYear()} 3MH TECHNOLOGIES
+   797→   797→            </p>
+   798→   798→          </div>
+   799→   799→        </div>
+   800→   800→      </footer>
+   801→   801→
+   802→   802→      {/* ============ AUTH DIALOG ============ */}
+   803→   803→      <AuthDialog open={authOpen} onOpenChange={setAuthOpen} defaultTab={authTab} />
+   804→   804→    </div>
+   805→   805→  )
+   806→   806→}
+   807→   807→

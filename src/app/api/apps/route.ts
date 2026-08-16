@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { slugify, SecurityError } from '@/lib/utils/security'
 import type { ApiResponse, AppStatus } from '@/lib/types'
@@ -88,6 +90,11 @@ export async function GET(request: NextRequest) {
 // POST /api/apps - Create a new application
 export async function POST(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.id) {
+      return err('UNAUTHORIZED', 'يجب تسجيل الدخول', undefined, undefined, 401)
+    }
+
     let body: Record<string, unknown>
     let uploadedFiles: File[] = []
     let zipFile: File | null = null
@@ -108,11 +115,11 @@ export async function POST(request: NextRequest) {
 
     // Validate required fields
     if (!body.name || typeof body.name !== 'string' || body.name.trim().length === 0) {
-      return err('VALIDATION_ERROR', 'Application name is required')
+      return err('VALIDATION_ERROR', 'اسم التطبيق مطلوب')
     }
 
     if (body.name.length > 100) {
-      return err('VALIDATION_ERROR', 'Application name must be less than 100 characters')
+      return err('VALIDATION_ERROR', 'اسم التطبيق يجب أن يكون أقل من 100 حرف')
     }
 
     // Determine app type
@@ -122,24 +129,17 @@ export async function POST(request: NextRequest) {
       'python-api', 'python-script', 'php-web', 'php-worker', 'custom',
     ]
     if (!validAppTypes.includes(appType)) {
-      return err('VALIDATION_ERROR', `Invalid app type: ${appType}. Must be one of: ${validAppTypes.join(', ')}`)
+      return err('VALIDATION_ERROR', `نوع التطبيق غير صالح: ${appType}`)
     }
 
     // Determine runtime
     let runtime = body.runtime
     if (!runtime) {
-      // Auto-detect from app type
-      if (appType.startsWith('python')) {
-        runtime = 'python'
-      } else if (appType.startsWith('php')) {
-        runtime = 'php'
-      } else {
-        runtime = 'custom'
-      }
+      if (appType.startsWith('python')) runtime = 'python'
+      else if (appType.startsWith('php')) runtime = 'php'
+      else runtime = 'custom'
     }
-    if (!['python', 'php'].includes(runtime) && runtime !== 'custom') {
-      runtime = 'custom'
-    }
+    if (!['python', 'php'].includes(runtime) && runtime !== 'custom') runtime = 'custom'
 
     // Generate slug
     const slug = slugify(body.name.trim())
@@ -147,7 +147,7 @@ export async function POST(request: NextRequest) {
     // Check if slug already exists
     const existing = await db.application.findUnique({ where: { slug } })
     if (existing) {
-      return err('CONFLICT', `An application with slug "${slug}" already exists. Please choose a different name.`, undefined, 'Try adding a unique suffix to the name')
+      return err('CONFLICT', `يوجد تطبيق بنفس الاسم`)
     }
 
     // Set defaults from app type
@@ -155,7 +155,6 @@ export async function POST(request: NextRequest) {
     const runtimeVersion = body.runtimeVersion || (runtime === 'python' ? DEFAULT_PYTHON_VERSION : DEFAULT_PHP_VERSION)
 
     let startCmd = body.startCmd || defaults.start
-    // Replace {port} placeholder
     if (startCmd && body.port) {
       startCmd = startCmd.replace('{port}', String(body.port))
     }
@@ -163,17 +162,6 @@ export async function POST(request: NextRequest) {
     // Create storage directory
     const storagePath = path.join(APPS_DIR, slug)
     await fs.mkdir(storagePath, { recursive: true })
-
-    // Get or create default user
-    let userId = body.userId as string | undefined
-    if (!userId) {
-      const user = await db.user.upsert({
-        where: { email: 'admin@hostforge.local' },
-        update: {},
-        create: { email: 'admin@hostforge.local', name: 'Admin', role: 'admin' },
-      })
-      userId = user.id
-    }
 
     // Create the app in database
     const app = await db.application.create({
@@ -195,7 +183,7 @@ export async function POST(request: NextRequest) {
         healthCheckCmd: body.healthCheckCmd || null,
         port: body.port || null,
         host: '0.0.0.0',
-        userId,
+        userId: session.user.id,
       },
     })
 
@@ -232,9 +220,9 @@ export async function POST(request: NextRequest) {
       return err('SECURITY_ERROR', error.message, undefined, undefined, 403)
     }
     if (error instanceof SyntaxError) {
-      return err('INVALID_JSON', 'Request body contains invalid JSON', undefined, 'Ensure your request body is valid JSON')
+      return err('INVALID_JSON', 'JSON غير صالح')
     }
     console.error('Failed to create app:', error)
-    return err('INTERNAL_ERROR', 'Failed to create application', undefined, undefined, 500)
+    return err('INTERNAL_ERROR', 'فشل في إنشاء التطبيق', undefined, undefined, 500)
   }
 }

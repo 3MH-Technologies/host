@@ -1,4 +1,4 @@
-# HostForge - Professional Hosting Platform - Worklog
+# Wolf Host - Application Hosting Platform - Worklog
 
 ## Project Overview
 Building a professional hosting platform for Python & PHP applications with full lifecycle management.
@@ -259,3 +259,34 @@ Stage Summary:
 - Python deps: WORKING (using uv for fast, correct installs)
 - App crashes expected when user code has no bot token (not a platform issue)
 - Files modified: lifecycle/route.ts, monitoring/route.ts, terminal-service/index.ts, terminal-view.tsx, constants.ts
+
+---
+Task ID: 3
+Agent: Main
+Task: Simplify design, add accounts system, and create landing page
+
+Work Log:
+- Updated Prisma schema: added `password`, `username`, `avatar` fields to User model; changed default role to 'user'
+- Force-reset DB and regenerated Prisma client
+- Created NextAuth.js config at `src/lib/auth.ts` with CredentialsProvider, JWT strategy, type augmentation
+- Created NextAuth API route at `src/app/api/auth/[...nextauth]/route.ts`
+- Created registration API at `src/app/api/auth/register/route.ts` with validation (email format, username min 3 chars, password min 6 chars), duplicate checks, bcrypt hashing
+- Created `src/hooks/use-auth.ts` with login/register/logout helpers
+- Updated `src/components/common/providers.tsx` to wrap with SessionProvider
+- Created landing page at `src/components/landing/landing-page.tsx` with: sticky navbar, hero section, features grid, how-it-works steps, pricing cards, CTA, footer, auth dialog (login/register tabs with form handling)
+- Simplified `src/components/common/app-shell.tsx`: 3 nav items (dashboard, apps, create), 5 app tabs (overview, files, terminal, logs, settings), user dropdown menu, theme toggle
+- Simplified `src/components/dashboard/dashboard-view.tsx`: removed sparklines, circular progress, complex timeline, system health panel. Now has simple stat cards, apps grid, recent activity list
+- Simplified `src/components/apps/app-detail-view.tsx`: 5 tabs instead of 9, Arabic labels, clean action buttons
+- Simplified `src/components/apps/app-overview-tab.tsx`: compact layout with status, uptime, resource gauges, info grid, recent logs
+- Simplified `src/components/apps/app-list-view.tsx`: search-only filter, clean card layout, Arabic labels
+- Simplified `src/components/apps/app-create-wizard.tsx`: 3 steps instead of 5, Arabic labels, minimal form
+- Updated `src/app/api/apps/route.ts` POST handler to use session auth instead of hardcoded admin user
+- Updated `src/app/page.tsx` to conditionally show LandingPage (unauthenticated) or AppShell (authenticated) with loading skeleton
+- Verified via browser: landing page renders with all sections, registration form works, auto-login after register, simplified dashboard shows with user name, navigation between dashboard and apps works
+
+Stage Summary:
+- Landing page: WORKING (hero, features, how-it-works, pricing, CTA, footer, auth dialog)
+- Accounts system: WORKING (register with validation, login, JWT sessions, auto-login after register)
+- Simplified design: WORKING (all components simplified with Arabic labels, clean minimal UI)
+- Auth-gated dashboard: WORKING (landing page → register → auto-login → dashboard flow verified)
+- Key files created/modified: auth.ts, auth/[...nextauth]/route.ts, register/route.ts, use-auth.ts, providers.tsx, landing-page.tsx, app-shell.tsx, dashboard-view.tsx, app-detail-view.tsx, app-overview-tab.tsx, app-list-view.tsx, app-create-wizard.tsx, page.tsx, apps/route.ts, schema.prisma
