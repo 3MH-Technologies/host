@@ -13,6 +13,8 @@ import {
   Eye,
   EyeOff,
   Loader2,
+  Send,
+  Check,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -28,28 +30,20 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { useAuth } from '@/hooks/use-auth'
 import { toast } from 'sonner'
 
-/* ------------------------------------------------------------------ */
-/*  Animation                                                          */
-/* ------------------------------------------------------------------ */
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.5, ease: 'easeOut' },
+    opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5, ease: 'easeOut' },
   }),
 }
 
-/* ------------------------------------------------------------------ */
-/*  Data                                                               */
-/* ------------------------------------------------------------------ */
 const features = [
   { icon: Terminal, title: 'طرفية تفاعلية', desc: 'تحكم في تطبيقاتك مباشرة من المتصفح.' },
   { icon: Shield, title: 'حماية متقدمة', desc: 'تشفير كامل وعزل آمن لكل تطبيق.' },
   { icon: Zap, title: 'أداء عالي', desc: 'تشغيل سريع مع إدارة موارد ذكية.' },
   { icon: Globe, title: 'نشر فوري', desc: 'انشر تطبيقك بخطوات بسيطة.' },
   { icon: Server, title: 'دعم Python و PHP', desc: 'دعم كامل لأشهر لغات الويب.' },
-  { icon: Terminal, title: 'إدارة ملفات', desc: 'رفع وتعديل الملفات بسهولة.' },
+  { icon: Check, title: 'مجاني بالكامل', desc: 'استضف تطبيقاتك مجانًا بدون تكاليف.' },
 ]
 
 const steps = [
@@ -58,28 +52,16 @@ const steps = [
   { num: '٣', title: 'انطلق!', desc: 'تطبيقك يعمل مباشرة.' },
 ]
 
-const plans = [
-  {
-    name: 'مجاني',
-    price: '٠',
-    features: ['٣ تطبيقات', '٥١٢ MB RAM', '1 نواة CPU', '500 MB تخزين', 'طرفية تفاعلية'],
-  },
-  {
-    name: 'احترافي',
-    price: '٢٩',
-    popular: true,
-    features: ['١٠ تطبيقات', '2 GB RAM', '2 نواة CPU', '5 GB تخزين', 'دعم فني', 'نسخ احتياطي'],
-  },
-  {
-    name: 'المؤسسات',
-    price: 'مخصص',
-    features: ['تطبيقات غير محدودة', 'RAM مخصص', 'CPU مخصص', 'تخزين مخصص', 'دعم فني 24/7', 'SLA مخصص'],
-  },
+const freeFeatures = [
+  '٣ تطبيقات',
+  '٥١٢ MB RAM',
+  '1 نواة CPU',
+  '500 MB تخزين',
+  'طرفية تفاعلية',
+  'إدارة ملفات',
+  'سجلات مباشرة',
 ]
 
-/* ------------------------------------------------------------------ */
-/*  Auth Dialog                                                        */
-/* ------------------------------------------------------------------ */
 function AuthDialog({
   open,
   onOpenChange,
@@ -203,9 +185,6 @@ function AuthDialog({
   )
 }
 
-/* ------------------------------------------------------------------ */
-/*  Landing Page                                                       */
-/* ------------------------------------------------------------------ */
 export function LandingPage() {
   const [authOpen, setAuthOpen] = useState(false)
   const [authTab, setAuthTab] = useState<'login' | 'register'>('login')
@@ -229,6 +208,7 @@ export function LandingPage() {
             <a href="#features" className="hover:text-foreground transition-colors">المميزات</a>
             <a href="#how" className="hover:text-foreground transition-colors">كيف يعمل</a>
             <a href="#pricing" className="hover:text-foreground transition-colors">الأسعار</a>
+            <a href="#contact" className="hover:text-foreground transition-colors">تواصل معنا</a>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" onClick={() => openAuth('login')} className="text-xs">
@@ -247,6 +227,7 @@ export function LandingPage() {
             <a href="#features" className="block text-sm py-1" onClick={() => setMobileMenu(false)}>المميزات</a>
             <a href="#how" className="block text-sm py-1" onClick={() => setMobileMenu(false)}>كيف يعمل</a>
             <a href="#pricing" className="block text-sm py-1" onClick={() => setMobileMenu(false)}>الأسعار</a>
+            <a href="#contact" className="block text-sm py-1" onClick={() => setMobileMenu(false)}>تواصل معنا</a>
           </div>
         )}
       </nav>
@@ -259,7 +240,7 @@ export function LandingPage() {
             initial="hidden" animate="visible" custom={0} variants={fadeUp}
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium"
           >
-            منصة استضافة Python و PHP
+            منصة استضافة مجانية لـ Python و PHP
           </motion.div>
 
           <motion.h1
@@ -267,14 +248,14 @@ export function LandingPage() {
             className="text-3xl md:text-5xl font-bold leading-tight"
           >
             استضف تطبيقاتك{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 to-emerald-600">بذكاء</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 to-emerald-600">مجانًا</span>
           </motion.h1>
 
           <motion.p
             initial="hidden" animate="visible" custom={2} variants={fadeUp}
             className="text-muted-foreground text-sm md:text-base max-w-lg mx-auto leading-relaxed"
           >
-            Wolf Host يوفر لك بيئة استضافة متكاملة مع طرفية تفاعلية وإدارة ملفات ومراقبة مباشرة.
+            Wolf Host يوفر لك بيئة استضافة متكاملة مع طرفية تفاعلية وإدارة ملفات ومراقبة مباشرة — كل ذلك مجانًا.
           </motion.p>
 
           <motion.div
@@ -348,45 +329,58 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Pricing */}
+      {/* Pricing - Free Only */}
       <section id="pricing" className="py-16 border-t">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-md mx-auto px-4">
           <h2 className="text-xl font-bold text-center mb-8">الأسعار</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {plans.map((plan, i) => (
-              <motion.div
-                key={plan.name}
-                initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i} variants={fadeUp}
-                className={`relative p-5 rounded-xl border bg-card ${plan.popular ? 'border-emerald-500 ring-1 ring-emerald-500/30' : ''}`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-emerald-500 text-[10px] text-white font-medium">
-                    الأكثر شعبية
-                  </div>
-                )}
-                <h3 className="font-semibold text-sm mb-1">{plan.name}</h3>
-                <div className="mb-4">
-                  <span className="text-2xl font-bold">{plan.price}</span>
-                  {plan.price !== 'مخصص' && <span className="text-xs text-muted-foreground mr-1">ريال/شهريًا</span>}
-                </div>
-                <ul className="space-y-2">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  onClick={() => openAuth('register')}
-                  variant={plan.popular ? 'default' : 'outline'}
-                  className={`w-full mt-5 h-9 text-xs ${plan.popular ? 'bg-emerald-600 hover:bg-emerald-500' : ''}`}
-                >
-                  ابدأ الآن
-                </Button>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}
+            className="relative p-6 rounded-2xl border-2 border-emerald-500 bg-card text-center"
+          >
+            <h3 className="font-bold text-lg mb-1">مجاني</h3>
+            <div className="mb-5">
+              <span className="text-4xl font-bold">٠</span>
+              <span className="text-sm text-muted-foreground mr-1">ريال — للأبد</span>
+            </div>
+            <ul className="space-y-3 mb-6">
+              {freeFeatures.map((f) => (
+                <li key={f} className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                  <Check className="h-4 w-4 text-emerald-500 shrink-0" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <Button onClick={() => openAuth('register')} className="w-full bg-emerald-600 hover:bg-emerald-500 h-11 text-sm">
+              ابدأ مجانًا
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="py-16 border-t">
+        <div className="max-w-md mx-auto px-4 text-center">
+          <motion.div
+            initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0} variants={fadeUp}
+            className="p-8 rounded-2xl bg-card border hover:border-emerald-500/30 transition-colors"
+          >
+            <Send className="h-10 w-10 text-emerald-500 mx-auto mb-4" />
+            <h2 className="text-xl font-bold mb-2">تواصل معنا</h2>
+            <p className="text-sm text-muted-foreground mb-5">
+              لديك سؤال أو اقتراح؟ تواصل معنا عبر تيلجرام
+            </p>
+            <a
+              href="https://t.me/j49_c"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#2AABEE] hover:bg-[#229ED9] text-white font-medium text-sm transition-colors"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current">
+                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+              </svg>
+              @j49_c
+            </a>
+          </motion.div>
         </div>
       </section>
 
@@ -410,7 +404,12 @@ export function LandingPage() {
             <img src="/logo.svg" alt="Wolf Host" className="h-4 w-4" />
             <span className="text-xs text-muted-foreground">Wolf Host</span>
           </div>
-          <p className="text-[11px] text-muted-foreground">© 2025 3MH TECHNOLOGIES</p>
+          <div className="flex items-center gap-4">
+            <a href="https://t.me/j49_c" target="_blank" rel="noopener noreferrer" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors">
+              @j49_c
+            </a>
+            <p className="text-[11px] text-muted-foreground">© 2025 3MH TECHNOLOGIES</p>
+          </div>
         </div>
       </footer>
 

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "Wolf Host - Application Hosting Platform",
   description: "Professional hosting platform for Python & PHP applications by 3MH TECHNOLOGIES",
   icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+    icon: "/logo.svg",
   },
 };
 
