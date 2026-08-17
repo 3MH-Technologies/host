@@ -87,7 +87,7 @@ Detailed architecture breakdown is available in [`security/ARCHITECTURE.md`](sec
 - Linux Host Kernel 6.x with cgroups v2 enabled
 - Docker with gVisor (`runsc`) runtime installed
 
-### Installation & Web Server Startup
+### Local Installation & Web Server Startup
 
 ```bash
 # Install dependencies
@@ -101,6 +101,20 @@ bun run build
 
 # Start production server
 bun start
+```
+
+---
+
+## ☁️ Deploying to Fly.io (تشغيل المنصة على Fly.io)
+
+For full step-by-step instructions on deploying 3MH Host to Fly.io, refer to [`FLY_DEPLOYMENT.md`](FLY_DEPLOYMENT.md).
+
+```bash
+# 1. Create persistent volume
+fly volumes create host_data --size 3 --region fra
+
+# 2. Deploy application
+fly deploy
 ```
 
 ---
