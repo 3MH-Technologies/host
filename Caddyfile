@@ -1,4 +1,4 @@
-:81 {
+{$PORT:8080}, :81 {
 	@transform_port_query {
 		query XTransformPort=*
 	}
