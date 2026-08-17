@@ -12,7 +12,7 @@ export default function Page() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <img src="/logo.svg" alt="Wolf Host" className="h-10 w-10 animate-pulse" />
+          <img src="/logo.jpg" alt="3MH Host" className="h-10 w-10 rounded-lg animate-pulse" />
           <Skeleton className="h-4 w-24" />
         </div>
       </div>

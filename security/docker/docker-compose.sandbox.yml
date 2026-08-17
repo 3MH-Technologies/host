@@ -1,0 +1,106 @@
+services:
+  # Python App Sandbox Template
+  python-tenant-app:
+    image: 3mh-python-sandbox:latest
+    container_name: tenant-${TENANT_ID:-tenant01}-python
+    runtime: runsc # Enforces gVisor sandbox execution
+    read_only: true # Enforces read-only root filesystem
+    user: "10001:10001" # Non-root execution using UID/GID mapping
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - TENANT_ID=${TENANT_ID:-tenant01}
+      - APP_ENV=production
+    volumes:
+      # Persistent application code and user uploads mount (Read-Only code)
+      - type: bind
+        source: ./tenants/${TENANT_ID:-tenant01}/app
+        target: /app
+        read_only: true
+      # Isolated persistent data directory
+      - type: bind
+        source: ./tenants/${TENANT_ID:-tenant01}/data
+        target: /app/data
+        read_only: false
+    tmpfs:
+      # Ephemeral memory-only storage with strict execution flags
+      - /tmp:rw,noexec,nosuid,nodev,size=67108864 # 64MB limit
+      - /run:rw,noexec,nosuid,nodev,size=16777216 # 16MB limit
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 512M
+          pids: 64
+        reservations:
+          cpus: '0.1'
+          memory: 64M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp=../seccomp/strict-sandbox.json
+    cap_drop:
+      - ALL # Drop all Linux capabilities
+    networks:
+      - tenant_${TENANT_ID:-tenant01}_net
+    restart: on-failure:3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # PHP Application Sandbox Template
+  php-tenant-app:
+    image: 3mh-php-sandbox:latest
+    container_name: tenant-${TENANT_ID:-tenant01}-php
+    runtime: runsc # Enforces gVisor sandbox execution
+    read_only: true # Enforces read-only root filesystem
+    user: "10002:10002"
+    environment:
+      - TENANT_ID=${TENANT_ID:-tenant01}
+      - PHP_ENV=production
+    volumes:
+      - type: bind
+        source: ./tenants/${TENANT_ID:-tenant01}/app
+        target: /var/www/html
+        read_only: true
+      - type: bind
+        source: ./tenants/${TENANT_ID:-tenant01}/data
+        target: /var/www/html/data
+        read_only: false
+      - type: bind
+        source: ../php/php.ini
+        target: /usr/local/etc/php/php.ini
+        read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=67108864
+      - /var/run:rw,noexec,nosuid,nodev,size=16777216
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 512M
+          pids: 64
+        reservations:
+          cpus: '0.1'
+          memory: 64M
+    security_opt:
+      - no-new-privileges:true
+      - seccomp=../seccomp/strict-sandbox.json
+    cap_drop:
+      - ALL
+    networks:
+      - tenant_${TENANT_ID:-tenant01}_net
+    restart: on-failure:3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  tenant_${TENANT_ID:-tenant01}_net:
+    driver: bridge
+    internal: false # Controlled egress via host nftables/iptables
+    driver_opts:
+      com.docker.network.bridge.name: "br-tenant-${TENANT_ID:-tenant01}"

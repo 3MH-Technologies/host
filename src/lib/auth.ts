@@ -55,7 +55,7 @@ export const authOptions: NextAuthOptions = {
       return session
     },
   },
-  secret: process.env.NEXTAUTH_SECRET || 'wolf-host-secret-key-change-in-production',
+  secret: process.env.NEXTAUTH_SECRET || '3mh-host-secret-key-change-in-production',
 }
 
 export default NextAuth(authOptions)

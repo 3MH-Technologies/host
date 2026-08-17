@@ -1,0 +1,35 @@
+- rule: Unauthorized Binary Execution in Sandbox Container
+  desc: Detects attempt to run dangerous system binaries inside multi-tenant sandboxes
+  condition: >
+    spawned_process and container.image.repository startswith "3mh-" and
+    proc.name in (nc, netcat, nmap, masscan, socat, tcpdump, gdb, strace, chroot, su, sudo)
+  output: "CRITICAL: Unauthorized binary execution attempt (%proc.cmdline) in tenant container (%container.name)"
+  priority: CRITICAL
+  tags: [3mh_host, container, execution]
+
+- rule: Read-Only System Directory Modification Attempt
+  desc: Detects write attempts to read-only root filesystems
+  condition: >
+    open_write and container.image.repository startswith "3mh-" and
+    fd.name startswith (/etc, /usr, /bin, /sbin, /lib, /boot)
+  output: "WARNING: Attempted write to read-only directory (%fd.name) by tenant container (%container.name)"
+  priority: WARNING
+  tags: [3mh_host, filesystem, tamper]
+
+- rule: Cloud Metadata SSRF Probe Attempt
+  desc: Detects connection attempts to internal Cloud Metadata Service (169.254.169.254)
+  condition: >
+    outbound and container.image.repository startswith "3mh-" and
+    fd.rip = "169.254.169.254"
+  output: "CRITICAL: Anti-SSRF Alert! Tenant container (%container.name) attempted connection to Cloud Metadata Service"
+  priority: CRITICAL
+  tags: [3mh_host, network, ssrf]
+
+- rule: Port Scanning / Lateral Sweep Activity
+  desc: Detects rapid outbound socket creations indicating network scanning
+  condition: >
+    outbound and container.image.repository startswith "3mh-" and
+    evt.type = connect and evt.res = 0
+  output: "NOTICE: Outbound socket connection created by tenant container (%container.name) to %fd.rip:%fd.rport"
+  priority: NOTICE
+  tags: [3mh_host, network, scan]

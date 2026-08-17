@@ -51,8 +51,8 @@ function TopBar({ onCreateClick }: { onCreateClick: () => void }) {
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-sm h-14 shrink-0">
       <div className="h-full max-w-4xl mx-auto px-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img src="/logo.svg" alt="Wolf Host" className="h-5 w-5" />
-          <span className="font-bold text-sm">Wolf Host</span>
+          <img src="/logo.jpg" alt="3MH Host" className="h-5 w-5 rounded" />
+          <span className="font-bold text-sm">3MH Host</span>
         </div>
 
         <div className="flex items-center gap-1.5">

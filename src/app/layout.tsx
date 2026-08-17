@@ -16,10 +16,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Wolf Host - Application Hosting Platform",
+  title: "3MH Host - Zero-Trust Application Hosting Platform",
   description: "Professional hosting platform for Python & PHP applications by 3MH TECHNOLOGIES",
   icons: {
-    icon: "/logo.svg",
+    icon: "/logo.jpg",
   },
 };
 

@@ -27,7 +27,7 @@ export function DashboardView() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-bold">لوحة التحكم</h1>
-          <p className="text-sm text-muted-foreground mt-0.5">مرحبًا بك في Wolf Host</p>
+          <p className="text-sm text-muted-foreground mt-0.5">مرحبًا بك في 3MH Host</p>
         </div>
         <Button onClick={() => setCurrentView('app-create')} size="sm" className="gap-1.5">
           <PlusCircle className="h-3.5 w-3.5" />

@@ -1,0 +1,35 @@
+# Production gVisor (`runsc`) Configuration for 3MH Host Multi-Tenant Sandbox
+# Location: /etc/runsc/config.toml or specified via --config
+
+[root]
+  # Path to store runsc state
+  path = "/run/user/1000/runsc"
+
+# Enable directfs for optimized secure filesystem access without Gofer process overhead
+directfs = true
+
+# Disable host network access inside gVisor Sentry
+net-raw = false
+
+# Network stack isolation mode (sandbox internal network stack)
+network = "sandbox"
+
+# Sentry Sandbox Debug and Logging (Production: warnings/errors only)
+debug = false
+log-format = "json"
+
+# Seccomp platform selection (kvm or ptrace)
+platform = "systrap"
+
+# Restrict host system calls allowed from Sentry
+[sentry]
+  # Disallow overlayfs mounts inside gVisor
+  allow-overlayfs = false
+
+[profile]
+  # Disable profiling in production sandboxes
+  enable = false
+
+[trace]
+  # Session trace settings
+  enable = false
