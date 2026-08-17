@@ -118,7 +118,7 @@ function AuthDialog({
             {defaultTab === 'login' ? 'تسجيل الدخول' : 'إنشاء حساب جديد'}
           </DialogTitle>
           <DialogDescription className="text-center text-sm">
-            {defaultTab === 'login' ? 'ادخل إلى حسابك' : 'ابدأ مع Wolf Host مجانًا'}
+            {defaultTab === 'login' ? 'ادخل إلى حسابك' : 'ابدأ مع 3MH Host مجانًا'}
           </DialogDescription>
         </DialogHeader>
 
@@ -201,8 +201,8 @@ export function LandingPage() {
       <nav className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/logo.svg" alt="Wolf Host" className="h-6 w-6" />
-            <span className="font-bold text-sm">Wolf Host</span>
+            <img src="/logo.jpg" alt="3MH Host" className="h-6 w-6 rounded" />
+            <span className="font-bold text-sm">3MH Host</span>
           </div>
           <div className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
             <a href="#features" className="hover:text-foreground transition-colors">المميزات</a>
@@ -255,7 +255,7 @@ export function LandingPage() {
             initial="hidden" animate="visible" custom={2} variants={fadeUp}
             className="text-muted-foreground text-sm md:text-base max-w-lg mx-auto leading-relaxed"
           >
-            Wolf Host يوفر لك بيئة استضافة متكاملة مع طرفية تفاعلية وإدارة ملفات ومراقبة مباشرة — كل ذلك مجانًا.
+            3MH Host يوفر لك بيئة استضافة متكاملة مع طرفية تفاعلية وإدارة ملفات ومراقبة مباشرة — كل ذلك مجانًا.
           </motion.p>
 
           <motion.div
@@ -286,7 +286,7 @@ export function LandingPage() {
       {/* Features */}
       <section id="features" className="py-16 border-t">
         <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-xl font-bold text-center mb-8">لماذا Wolf Host؟</h2>
+          <h2 className="text-xl font-bold text-center mb-8">لماذا 3MH Host؟</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {features.map((f, i) => (
               <motion.div
@@ -401,8 +401,8 @@ export function LandingPage() {
       <footer className="border-t py-6 mt-auto">
         <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <img src="/logo.svg" alt="Wolf Host" className="h-4 w-4" />
-            <span className="text-xs text-muted-foreground">Wolf Host</span>
+            <img src="/logo.jpg" alt="3MH Host" className="h-4 w-4 rounded" />
+            <span className="text-xs text-muted-foreground">3MH Host</span>
           </div>
           <div className="flex items-center gap-4">
             <a href="https://t.me/j49_c" target="_blank" rel="noopener noreferrer" className="text-[11px] text-muted-foreground hover:text-foreground transition-colors">

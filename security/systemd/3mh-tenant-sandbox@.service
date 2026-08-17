@@ -1,0 +1,55 @@
+[Unit]
+Description=3MH Host Tenant Sandbox Service (%i)
+Documentation=https://docs.3mh.host/security
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/3mh/sandboxes/%i
+ExecStartPre=-/usr/bin/docker stop tenant-%i
+ExecStartPre=-/usr/bin/docker rm tenant-%i
+ExecStart=/usr/bin/docker run --name tenant-%i \
+  --runtime=runsc \
+  --read-only \
+  --user 10001:10001 \
+  --cap-drop=ALL \
+  --security-opt no-new-privileges:true \
+  --security-opt seccomp=/etc/3mh/seccomp/strict-sandbox.json \
+  --cpus=2.0 \
+  --memory=512m \
+  --pids-limit=64 \
+  --tmpfs /tmp:rw,noexec,nosuid,nodev,size=67108864 \
+  --tmpfs /run:rw,noexec,nosuid,nodev,size=16777216 \
+  --v /var/3mh/tenants/%i/app:/app:ro \
+  --v /var/3mh/tenants/%i/data:/app/data:rw \
+  --net=tenant_%i_net \
+  3mh-python-sandbox:latest
+
+ExecStop=/usr/bin/docker stop -t 10 tenant-%i
+ExecStopPost=/usr/bin/docker rm -f tenant-%i
+Restart=on-failure
+RestartSec=5s
+
+# Systemd cgroups v2 resource limits for host protection
+Slice=3mh-tenants.slice
+CPUAccounting=true
+MemoryAccounting=true
+TasksAccounting=true
+IOAccounting=true
+
+CPUQuota=200%
+MemoryMax=512M
+MemoryHigh=448M
+MemorySwapMax=0M
+TasksMax=64
+
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target

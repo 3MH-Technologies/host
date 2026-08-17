@@ -1,0 +1,59 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: zero-trust-tenant-isolation
+  namespace: 3mh-tenants
+spec:
+  podSelector:
+    matchLabels:
+      role: tenant-app
+  policyTypes:
+    - Ingress
+    - Egress
+
+  # Ingress Isolation: Only traffic from authorized Gateway Reverse Proxies on port 8080/8000
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: 3mh-gateway
+          podSelector:
+            matchLabels:
+              app: reverse-proxy
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 8000
+
+  # Egress Isolation: Allow DNS and Public Web Access, Block Private IP Subnets and Cloud Metadata
+  egress:
+    # 1. Allow Cluster CoreDNS
+    - ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+      to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+
+    # 2. Allow External Egress to Public Internet (Except Private Subnets & Metadata Endpoint)
+    - ports:
+        - protocol: TCP
+          port: 80
+        - protocol: TCP
+          port: 443
+      to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 169.254.169.254/32  # AWS / GCP / Azure Cloud Metadata
+              - 10.0.0.0/8          # Class A Internal Network
+              - 172.16.0.0/12       # Class B Internal Network
+              - 192.168.0.0/16      # Class C Internal Network
+              - 127.0.0.0/8         # Loopback

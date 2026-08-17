@@ -113,7 +113,7 @@ export function SimpleAppCreateDialog({
         <DialogHeader>
           <DialogTitle className="text-lg">تطبيق جديد</DialogTitle>
           <DialogDescription className="text-sm">
-            أنشئ تطبيقًا جديدًا على Wolf Host
+            أنشئ تطبيقًا جديدًا على 3MH Host
           </DialogDescription>
         </DialogHeader>
 

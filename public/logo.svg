@@ -1,21 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" xml:space="preserve">
-  <defs>
-    <linearGradient id="wolfGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#10b981"/>
-      <stop offset="100%" style="stop-color:#059669"/>
-    </linearGradient>
-  </defs>
-  <rect width="32" height="32" rx="7" fill="#1a1a2e"/>
-  <g transform="translate(16,16)">
-    <!-- Wolf head silhouette -->
-    <path d="M-2,-10 L-6,-3 L-8,1 L-7,3 L-6,2 L-5,4 L-6,6 L-5,7 L-3,6 L-1,8 L0,7 L1,8 L3,6 L5,7 L6,6 L5,4 L6,2 L7,3 L8,1 L6,-3 L2,-10 L0,-8 Z"
-      fill="url(#wolfGrad)"/>
-    <!-- Left eye -->
-    <circle cx="-3" cy="-1" r="1.2" fill="#1a1a2e"/>
-    <!-- Right eye -->
-    <circle cx="3" cy="-1" r="1.2" fill="#1a1a2e"/>
-    <!-- Nose -->
-    <ellipse cx="0" cy="4" rx="1" ry="0.7" fill="#1a1a2e"/>
-  </g>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" width="100%" height="100%">
+  <image href="/logo.jpg" x="0" y="0" width="100" height="100"/>
 </svg>

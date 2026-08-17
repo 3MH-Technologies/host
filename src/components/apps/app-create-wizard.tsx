@@ -135,7 +135,7 @@ export function AppCreateWizard() {
         </Button>
         <div>
           <h1 className="text-lg font-bold">إنشاء تطبيق جديد</h1>
-          <p className="text-xs text-muted-foreground">نشر تطبيق جديد على Wolf Host</p>
+          <p className="text-xs text-muted-foreground">نشر تطبيق جديد على 3MH Host</p>
         </div>
       </div>
 
