@@ -1,0 +1,20 @@
+[Unit]
+Description=3MH Host Process Manager Mini-Service
+After=network.target docker.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/3mh-host/mini-services/process-manager
+EnvironmentFile=/opt/3mh-host/.env
+ExecStart=/usr/local/bin/bun index.ts
+Restart=always
+RestartSec=3s
+
+# Security Hardening
+ProtectSystem=full
+ProtectHome=read-only
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

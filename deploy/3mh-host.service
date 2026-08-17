@@ -1,0 +1,22 @@
+[Unit]
+Description=3MH Host Main Next.js Web Application
+After=network.target docker.service 3mh-process-manager.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/3mh-host
+EnvironmentFile=/opt/3mh-host/.env
+ExecStart=/usr/local/bin/bun start
+Restart=always
+RestartSec=3s
+
+# Security Hardening
+LimitNOFILE=65535
+ProtectSystem=full
+ProtectHome=read-only
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
