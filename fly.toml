@@ -1,7 +1,7 @@
 # fly.toml app configuration file generated for 3MH Host
 
 app = "host-3mh"
-primary_region = "fra"
+primary_region = "lax"
 
 [build]
   dockerfile = "Dockerfile"
