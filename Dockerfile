@@ -12,7 +12,8 @@ FROM oven/bun:1-slim AS builder
 
 WORKDIR /app
 
-ENV NODE_ENV=development
+# Production build environment
+ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Copy dependency definition files
@@ -38,19 +39,19 @@ COPY db ./db
 COPY Caddyfile ./
 
 # ============================================================
-# Fix tw-animate-css CSS resolution for Next.js/Turbopack
+# Fix tw-animate-css resolution
 # ============================================================
 
-# Make sure the package CSS actually exists
 RUN test -f node_modules/tw-animate-css/dist/tw-animate.css
 
-# Copy the package CSS next to globals.css
 RUN cp node_modules/tw-animate-css/dist/tw-animate.css \
     src/app/tw-animate.css
 
-# Replace package-based CSS import with local relative import
 RUN sed -i 's|@import "tw-animate-css";|@import "./tw-animate.css";|' \
     src/app/globals.css
+
+# Verify the replacement actually happened
+RUN grep -q '@import "./tw-animate.css";' src/app/globals.css
 
 # ============================================================
 # Prisma
@@ -60,7 +61,16 @@ RUN bun run db:generate
 # ============================================================
 # Next.js production build
 # ============================================================
-RUN bun run build
+# Use Webpack instead of Turbopack for this build.
+# CSS is now local, so Webpack does not need to resolve
+# tw-animate-css through the package CSS resolver.
+RUN bun run next build --webpack
+
+# Copy standalone static files
+RUN cp -r .next/static .next/standalone/.next/
+
+# Copy public files into standalone output
+RUN cp -r public .next/standalone/
 
 # ============================================================
 # Stage 3: Production Runner
